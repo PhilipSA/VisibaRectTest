@@ -10,8 +10,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true">
-        <SurfaceView
-            android:id="@+id/cameraViewPreview"
+        <TextureView
+            android:id="@+id/cameraPreviewSurfaceView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
