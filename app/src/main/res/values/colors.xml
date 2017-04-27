@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorTextStandard">#606060</color>
+    <color name="colorTextInvert">#ffffff</color>
+    <color name="colorDivider">#ebebeb</color>
+
+    <color name="colorButton">#008296</color>
+
+    <color name="colorInput">#ebebeb</color>
+    <color name="colorInputPlaceholder">#cccccc</color>
+    <color name="colorInputUnderline">#008296</color>
+    <color name="colorInputUnderlinePlaceholder">#00829680</color>
+</resources>
