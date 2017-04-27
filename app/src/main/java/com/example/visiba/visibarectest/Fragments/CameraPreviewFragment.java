@@ -25,4 +25,6 @@ public class CameraPreviewFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_camera_preview, container, false);
         return rootView;
     }
+
+
 }
