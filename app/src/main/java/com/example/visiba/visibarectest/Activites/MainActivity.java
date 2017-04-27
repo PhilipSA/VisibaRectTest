@@ -1,5 +1,6 @@
 package com.example.visiba.visibarectest.Activites;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -24,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     WallPostsHandler wallPostsHandler;
     ListView wallPostsListView;
 
+    ImageButton leftImageButton;
+    ImageButton rightImageButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
         newPostInput = (EditText)findViewById(R.id.newPostInput);
         wallPostsListView = (ListView)findViewById(R.id.listView);
 
-        populateWallPostsListView();
+        leftImageButton = (ImageButton)findViewById(R.id.leftImageButton);
+        rightImageButton = (ImageButton)findViewById(R.id.rightImageButton);
+
+        //populateWallPostsListView();
 
         newPostInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -56,6 +64,31 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void OpenCameraActivity(String imageButton)
+    {
+        Intent intent = new Intent(this, CameraActivity.class);
+        intent.putExtra("IMAGE_BUTTON_NAME", imageButton);
+        startActivity(intent);
+    }
+
+    public void onLeftImageButtonClick(View v)
+    {
+        try {
+            OpenCameraActivity("left");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onRightImageButtonClick(View v)
+    {
+        try {
+            OpenCameraActivity("right");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void populateWallPostsListView()

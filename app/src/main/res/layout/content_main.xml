@@ -29,10 +29,14 @@
             android:layout_marginTop="101dp">
 
             <ImageButton
+                android:id="@+id/leftImageButton"
+                android:onClick="onLeftImageButtonClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <ImageButton
+                android:id="@+id/rightImageButton"
+                android:onClick="onRightImageButtonClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
