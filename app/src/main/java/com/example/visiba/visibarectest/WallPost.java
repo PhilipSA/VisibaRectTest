@@ -1,5 +1,6 @@
 package com.example.visiba.visibarectest;
 
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.Date;
 public class WallPost
 {
     public String textContent;
-    public Image leftImage;
-    public Image rightImage;
+    public AppImage leftImage;
+    public AppImage rightImage;
     public Date postedDate;
 }

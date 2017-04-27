@@ -13,13 +13,14 @@
         android:layout_height="200dp"
         android:id="@+id/frameLayout">
         <EditText
+            android:id="@+id/newPostInput"
             android:layout_width="382dp"
             android:layout_height="41dp"
             android:hint="Hint text"
             android:layout_marginRight="8dp" />
 
         <LinearLayout
-            android:id="@+id/newMessageButtonsLayout"
+            android:id="@+id/newPostButtonsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -43,16 +44,25 @@
 
     </FrameLayout>
 
+    <ScrollView
+        android:id="@+id/wallPostsScrollView"
+        android:clickable="true"
+        android:layout_weight="1"
+        android:layout_width="fill_parent"
+        android:layout_marginBottom="50px"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/frameLayout">
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginTop="28dp"
-        android:id="@+id/listView"
-        android:layout_below="@+id/frameLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true">
-    </ListView>
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="28dp"
+            android:id="@+id/wallPostsListView"
+            android:layout_below="@+id/frameLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true">
+        </ListView>
+    </ScrollView>
 
 </RelativeLayout>
