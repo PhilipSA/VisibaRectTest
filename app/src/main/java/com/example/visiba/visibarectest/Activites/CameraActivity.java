@@ -31,7 +31,7 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     public void onCameraRollCurtainLayoutClick(View v) {
-        mViewPager.setCurrentItem(1, true);
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() ^ 1, true);
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {

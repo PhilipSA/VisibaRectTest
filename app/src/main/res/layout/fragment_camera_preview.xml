@@ -26,11 +26,11 @@
             android:id="@+id/takePhotoImageButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginBottom="20dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="61dp"
             android:tint="@color/colorCameraButton"
-            android:src="@drawable/ic_radio_select"/>
+            android:src="@drawable/ic_radio_select"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/cameraSquareImage" />
 
         <ImageButton
             android:id="@+id/swapCameraImageButton"

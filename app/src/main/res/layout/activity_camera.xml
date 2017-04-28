@@ -10,7 +10,8 @@
     <com.example.visiba.visibarectest.ViewPager.VerticalViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true" />
 
 
     <LinearLayout
@@ -18,6 +19,7 @@
         android:onClick="onCameraRollCurtainLayoutClick"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@color/colorButton"
         android:layout_alignParentBottom="true">
 
         <ImageView
