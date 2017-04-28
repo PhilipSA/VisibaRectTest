@@ -7,6 +7,7 @@ import android.support.v4.os.IResultReceiver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.papersoccer.visibarectest.R;
@@ -42,8 +43,18 @@ public class CameraGalleryRollFragment extends Fragment implements IResultReturn
         cameraRollGalleryGrid = (GridView)view.findViewById(R.id.cameraRollGalleryGrid);
         displayAllImages();
 
+        cameraRollGalleryGrid.setOnItemClickListener(onGalleryItemClick);
+
         return view;
     }
+
+    private AdapterView.OnItemClickListener onGalleryItemClick = new AdapterView.OnItemClickListener()
+    {
+        public void onItemClick (AdapterView<?> parent, View v, int position, long id)
+        {
+            Finish((AppImage)parent.getItemAtPosition(position));
+        }
+    };
 
     private void displayAllImages()
     {
