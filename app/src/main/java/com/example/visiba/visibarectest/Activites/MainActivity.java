@@ -15,7 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.papersoccer.visibarectest.R;
+import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Enums.ImageRequestCode;
+import com.example.visiba.visibarectest.Handlers.StorageHandler;
 import com.example.visiba.visibarectest.Views.WallPostView;
 import com.example.visiba.visibarectest.WallPost;
 import com.example.visiba.visibarectest.Handlers.WallPostsHandler;
@@ -27,8 +29,13 @@ public class MainActivity extends AppCompatActivity {
     WallPostsHandler wallPostsHandler;
     ListView wallPostsListView;
 
+    StorageHandler storageHandler;
+
     ImageButton leftImageButton;
     ImageButton rightImageButton;
+
+    AppImage leftImage;
+    AppImage rightImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +44,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        wallPostsHandler = new WallPostsHandler();
-
         newPostInput = (EditText)findViewById(R.id.newPostInput);
-        wallPostsListView = (ListView)findViewById(R.id.listView);
+        wallPostsListView = (ListView)findViewById(R.id.wallPostsListView);
 
         leftImageButton = (ImageButton)findViewById(R.id.leftImageButton);
         rightImageButton = (ImageButton)findViewById(R.id.rightImageButton);
 
-        //populateWallPostsListView();
+        newPostButtonsLayout = (LinearLayout)findViewById(R.id.newPostButtonsLayout);
+
+        storageHandler = new StorageHandler(this);
+        wallPostsHandler = new WallPostsHandler(storageHandler);
+
+        populateWallPostsListView();
 
         newPostInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -59,12 +69,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() != 0) newPostButtonsLayout.setVisibility(View.INVISIBLE);
+                if(s.length() != 0) newPostButtonsLayout.setVisibility(View.VISIBLE);
                 else {
-                    newPostButtonsLayout.setVisibility(View.VISIBLE);
+                    newPostButtonsLayout.setVisibility(View.INVISIBLE);
                 }
             }
         });
+    }
+
+    public void onSendWallPostClick(View view)
+    {
+        WallPost wallPost = new WallPost(newPostInput.getText().toString(), leftImage, rightImage);
+        storageHandler.SaveWallPostData(new WallPost.SerializableWallPost(wallPost));
     }
 
     public void OpenCameraActivity(int imageButtonRequestCode)
@@ -81,7 +97,17 @@ public class MainActivity extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 String imageId = data.getStringExtra("IMAGE_ID");
-                int test = 0;
+                AppImage appImage = storageHandler.loadImagesFromStorage(imageId + ".jpg");
+                leftImageButton.setImageDrawable(appImage.drawableImage);
+                leftImage = appImage;
+            }
+        }
+        else if (requestCode == ImageRequestCode.RIGHT) {
+            if (resultCode == RESULT_OK) {
+                String imageId = data.getStringExtra("IMAGE_ID");
+                AppImage appImage = storageHandler.loadImagesFromStorage(imageId + ".jpg");
+                rightImageButton.setImageDrawable(appImage.drawableImage);
+                rightImage = appImage;
             }
         }
     }
@@ -106,9 +132,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void populateWallPostsListView()
     {
-        for (WallPost wallpost : wallPostsHandler.GetAllWallPosts())
+        for (WallPost.SerializableWallPost serializableWallPost : storageHandler.LoadAllWallPostsFromStorage())
         {
-            wallPostsListView.addView(new WallPostView(this, wallpost));
+            WallPost wallPost = wallPostsHandler.ConvertSerializableToWallPost(serializableWallPost);
+            //wallPostsListView.addView(new WallPostView(this, wallPost));
         }
     }
 

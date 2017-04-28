@@ -11,20 +11,18 @@ import java.util.List;
 
 public class WallPostsHandler
 {
-    public List<WallPost> wallPosts = new ArrayList<>();
+    StorageHandler storageHandler;
 
-    public void CreateNewWallPost()
-    {
-
+    public WallPostsHandler(StorageHandler storageHandler) {
+        this.storageHandler = storageHandler;
     }
 
-    public ArrayList<WallPost> GetAllWallPosts()
+    public WallPost ConvertSerializableToWallPost(WallPost.SerializableWallPost serializableWallPost)
     {
-        return null;
-    }
-
-    public void SaveWallPost()
-    {
-
+        return new WallPost(serializableWallPost.id,
+                serializableWallPost.textContent,
+                storageHandler.loadImagesFromStorage(String.valueOf(serializableWallPost.leftImageId)),
+                storageHandler.loadImagesFromStorage(String.valueOf(serializableWallPost.rightImageId)),
+                serializableWallPost.postedDate);
     }
 }
