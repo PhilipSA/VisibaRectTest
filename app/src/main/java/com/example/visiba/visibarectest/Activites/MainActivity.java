@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.papersoccer.visibarectest.R;
+import com.example.visiba.visibarectest.Enums.ImageRequestCode;
 import com.example.visiba.visibarectest.Views.WallPostView;
 import com.example.visiba.visibarectest.WallPost;
 import com.example.visiba.visibarectest.Handlers.WallPostsHandler;
@@ -66,17 +67,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void OpenCameraActivity(String imageButton)
+    public void OpenCameraActivity(int imageButtonRequestCode)
     {
         Intent intent = new Intent(this, CameraActivity.class);
-        intent.putExtra("IMAGE_BUTTON_NAME", imageButton);
-        startActivity(intent);
+        intent.putExtra("IMAGE_BUTTON_REQUEST_CODE", imageButtonRequestCode);
+        startActivityForResult(intent, imageButtonRequestCode);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == ImageRequestCode.LEFT) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                String imageId = data.getStringExtra("IMAGE_ID");
+                int test = 0;
+            }
+        }
     }
 
     public void onLeftImageButtonClick(View v)
     {
         try {
-            OpenCameraActivity("left");
+            OpenCameraActivity(ImageRequestCode.LEFT);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRightImageButtonClick(View v)
     {
         try {
-            OpenCameraActivity("right");
+            OpenCameraActivity(ImageRequestCode.RIGHT);
         } catch (Exception e) {
             e.printStackTrace();
         }

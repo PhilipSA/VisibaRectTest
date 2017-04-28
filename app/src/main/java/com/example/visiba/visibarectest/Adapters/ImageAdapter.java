@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.example.visiba.visibarectest.AppImage;
+
 import java.util.ArrayList;
 
 /**
@@ -16,9 +18,9 @@ import java.util.ArrayList;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
-    private ArrayList<Drawable> images;
+    private ArrayList<AppImage> images;
 
-    public ImageAdapter(Context c, ArrayList<Drawable> images) {
+    public ImageAdapter(Context c, ArrayList<AppImage> images) {
         mContext = c;
         this.images = images;
     }
@@ -46,7 +48,7 @@ public class ImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageDrawable(images.get(position));
+        imageView.setImageDrawable(images.get(position).drawableImage);
         return imageView;
     }
 }

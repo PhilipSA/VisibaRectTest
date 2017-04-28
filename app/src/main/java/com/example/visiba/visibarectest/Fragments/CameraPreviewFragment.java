@@ -47,14 +47,16 @@ import java.util.List;
 import java.util.UUID;
 
 import com.example.papersoccer.visibarectest.R;
+import com.example.visiba.visibarectest.Activites.CameraActivity;
 import com.example.visiba.visibarectest.AppImage;
+import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
 import com.example.visiba.visibarectest.Handlers.StorageHandler;
 
 /**
  * Created by Admin on 2017-04-27.
  */
 
-public class CameraPreviewFragment extends Fragment {
+public class CameraPreviewFragment extends Fragment implements IResultReturning<AppImage> {
     public static Fragment newInstance() {
         CameraPreviewFragment fragmentFirst = new CameraPreviewFragment();
         return fragmentFirst;
@@ -109,13 +111,18 @@ public class CameraPreviewFragment extends Fragment {
         exitCameraImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
+                Finish(null);
             }
         });
         return view;
     }
 
-    TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
+    public void Finish(AppImage appImage) {
+        ((CameraActivity)getActivity()).Finish(appImage);
+    };
+
+    TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener()
+    {
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
             //open your camera here
@@ -133,7 +140,9 @@ public class CameraPreviewFragment extends Fragment {
         public void onSurfaceTextureUpdated(SurfaceTexture surface) {
         }
     };
-    private final CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
+
+    private final CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback()
+    {
         @Override
         public void onOpened(CameraDevice camera) {
             //This is called when the camera is open
@@ -151,6 +160,7 @@ public class CameraPreviewFragment extends Fragment {
             cameraDevice = null;
         }
     };
+
     final CameraCaptureSession.CaptureCallback captureCallbackListener = new CameraCaptureSession.CaptureCallback() {
         @Override
         public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
@@ -159,11 +169,13 @@ public class CameraPreviewFragment extends Fragment {
             createCameraPreview();
         }
     };
+
     protected void startBackgroundThread() {
         mBackgroundThread = new HandlerThread("Camera Background");
         mBackgroundThread.start();
         mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
     }
+
     protected void stopBackgroundThread() {
         mBackgroundThread.quitSafely();
         try {
@@ -174,6 +186,7 @@ public class CameraPreviewFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
     protected void takePicture() {
         if(null == cameraDevice) {
             Log.e(TAG, "cameraDevice is null");
@@ -210,6 +223,7 @@ public class CameraPreviewFragment extends Fragment {
                         storageHandler.saveAppImage(appImage);
                     } finally {
                         if (appImage != null) {
+                            Finish(appImage);
                             appImage.image.close();
                         }
                     }
@@ -241,7 +255,9 @@ public class CameraPreviewFragment extends Fragment {
             e.printStackTrace();
         }
     }
-    protected void createCameraPreview() {
+
+    protected void createCameraPreview()
+    {
         try {
             SurfaceTexture texture = textureView.getSurfaceTexture();
             assert texture != null;
@@ -269,7 +285,9 @@ public class CameraPreviewFragment extends Fragment {
             e.printStackTrace();
         }
     }
-    private void openCamera() {
+
+    private void openCamera()
+    {
         CameraManager manager = (CameraManager) getActivity().getSystemService(Context.CAMERA_SERVICE);
         Log.e(TAG, "is camera open");
         try {
@@ -289,8 +307,11 @@ public class CameraPreviewFragment extends Fragment {
         }
         Log.e(TAG, "openCamera X");
     }
-    protected void updatePreview() {
-        if(null == cameraDevice) {
+
+    protected void updatePreview()
+    {
+        if(null == cameraDevice)
+        {
             Log.e(TAG, "updatePreview error, return");
         }
         captureRequestBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
@@ -310,6 +331,7 @@ public class CameraPreviewFragment extends Fragment {
             imageReader = null;
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {

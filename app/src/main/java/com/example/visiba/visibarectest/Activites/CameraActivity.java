@@ -1,5 +1,8 @@
 package com.example.visiba.visibarectest.Activites;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,10 +13,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.papersoccer.visibarectest.R;
+import com.example.visiba.visibarectest.AppImage;
+import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
 import com.example.visiba.visibarectest.Fragments.CameraGalleryRollFragment;
 import com.example.visiba.visibarectest.Fragments.CameraPreviewFragment;
 
-public class CameraActivity extends AppCompatActivity {
+public class CameraActivity extends AppCompatActivity implements IResultReturning<AppImage> {
     ViewPager mViewPager;
     LinearLayout cameraRollCurtainLayout;
     FragmentPagerAdapter adapterView;
@@ -34,6 +39,16 @@ public class CameraActivity extends AppCompatActivity {
         mViewPager.setCurrentItem(mViewPager.getCurrentItem() ^ 1, true);
     }
 
+    public void Finish(AppImage appImage)
+    {
+        Bundle conData = new Bundle();
+        conData.putString("IMAGE_ID", String.valueOf(appImage.imageId));
+        Intent intent = new Intent();
+        intent.putExtras(conData);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
     public static class MyPagerAdapter extends FragmentPagerAdapter {
         private static int NUM_ITEMS = 2;
 
@@ -51,9 +66,9 @@ public class CameraActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0: // Fragment # 0 - This will show FirstFragment
+                case 0:
                     return CameraPreviewFragment.newInstance();
-                case 1: // Fragment # 0 - This will show FirstFragment different title
+                case 1:
                     return CameraGalleryRollFragment.newInstance();
                 default:
                     return null;
