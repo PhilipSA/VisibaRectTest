@@ -15,12 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.papersoccer.visibarectest.R;
+import com.example.visiba.visibarectest.Adapters.WallPostAdapter;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Enums.ImageRequestCode;
 import com.example.visiba.visibarectest.Handlers.StorageHandler;
 import com.example.visiba.visibarectest.Views.WallPostView;
 import com.example.visiba.visibarectest.WallPost;
 import com.example.visiba.visibarectest.Handlers.WallPostsHandler;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -132,11 +135,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void populateWallPostsListView()
     {
+        ArrayList<WallPost> wallPosts = new ArrayList<>();
+
         for (WallPost.SerializableWallPost serializableWallPost : storageHandler.LoadAllWallPostsFromStorage())
         {
             WallPost wallPost = wallPostsHandler.ConvertSerializableToWallPost(serializableWallPost);
-            //wallPostsListView.addView(new WallPostView(this, wallPost));
+            wallPosts.add(wallPost);
         }
+
+        WallPostAdapter wallPostAdapter = new WallPostAdapter(getBaseContext(), wallPosts);
+        wallPostsListView.setAdapter(wallPostAdapter);
     }
 
     @Override
