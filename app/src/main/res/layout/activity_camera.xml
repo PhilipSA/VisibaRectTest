@@ -4,12 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/AppTheme"
     tools:context="com.example.visiba.visibarectest.Activites.CameraActivity">
 
     <com.example.visiba.visibarectest.ViewPager.VerticalViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-    />
+        android:layout_height="match_parent" />
+
+
+    <LinearLayout
+        android:id="@+id/cameraRollCurtainLayout"
+        android:onClick="onCameraRollCurtainLayoutClick"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_album_rund"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Camera Roll"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_pil" />
+
+    </LinearLayout>
 
 </RelativeLayout>

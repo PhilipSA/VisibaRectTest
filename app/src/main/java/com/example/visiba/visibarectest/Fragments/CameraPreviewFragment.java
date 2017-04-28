@@ -59,6 +59,7 @@ public class CameraPreviewFragment extends Fragment {
 
     private static final String TAG = "AndroidCameraApi";
     private ImageButton takePictureButton;
+    private ImageButton exitCameraImageButton;
     private TextureView textureView;
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     static {
@@ -95,6 +96,13 @@ public class CameraPreviewFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 takePicture();
+            }
+        });
+        exitCameraImageButton = (ImageButton)view.findViewById(R.id.exitCameraImageButton);
+        exitCameraImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
             }
         });
         return view;

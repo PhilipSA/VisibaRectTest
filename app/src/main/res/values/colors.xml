@@ -10,6 +10,8 @@
 
     <color name="colorButton">#008296</color>
 
+    <color name="colorCameraButton">#FFFFFF</color>
+
     <color name="colorInput">#ebebeb</color>
     <color name="colorInputPlaceholder">#cccccc</color>
     <color name="colorInputUnderline">#008296</color>

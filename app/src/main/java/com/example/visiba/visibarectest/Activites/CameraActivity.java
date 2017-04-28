@@ -6,20 +6,32 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.example.papersoccer.visibarectest.R;
 import com.example.visiba.visibarectest.Fragments.CameraGalleryRollFragment;
 import com.example.visiba.visibarectest.Fragments.CameraPreviewFragment;
 
 public class CameraActivity extends AppCompatActivity {
+    ViewPager mViewPager;
+    LinearLayout cameraRollCurtainLayout;
+    FragmentPagerAdapter adapterView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        ViewPager mViewPager = (ViewPager)findViewById(R.id.viewpager);
-        FragmentPagerAdapter adapterView = new MyPagerAdapter(getSupportFragmentManager());;
+        mViewPager = (ViewPager)findViewById(R.id.viewpager);
+        adapterView = new MyPagerAdapter(getSupportFragmentManager());;
         mViewPager.setAdapter(adapterView);
+
+        cameraRollCurtainLayout = (LinearLayout) findViewById(R.id.cameraRollCurtainLayout);
+    }
+
+    public void onCameraRollCurtainLayoutClick(View v) {
+        mViewPager.setCurrentItem(1, true);
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
