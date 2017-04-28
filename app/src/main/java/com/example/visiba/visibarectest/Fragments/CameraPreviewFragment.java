@@ -44,8 +44,11 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import com.example.papersoccer.visibarectest.R;
+import com.example.visiba.visibarectest.AppImage;
+import com.example.visiba.visibarectest.Handlers.StorageHandler;
 
 /**
  * Created by Admin on 2017-04-27.
@@ -75,11 +78,12 @@ public class CameraPreviewFragment extends Fragment {
     protected CaptureRequest.Builder captureRequestBuilder;
     private Size imageDimension;
     private ImageReader imageReader;
-    private File file;
+    private AppImage appImage;
     private static final int REQUEST_CAMERA_PERMISSION = 200;
     private boolean mFlashSupported;
     private Handler mBackgroundHandler;
     private HandlerThread mBackgroundThread;
+    private StorageHandler storageHandler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,6 +102,9 @@ public class CameraPreviewFragment extends Fragment {
                 takePicture();
             }
         });
+
+        storageHandler = new StorageHandler(getContext());
+
         exitCameraImageButton = (ImageButton)view.findViewById(R.id.exitCameraImageButton);
         exitCameraImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +155,7 @@ public class CameraPreviewFragment extends Fragment {
         @Override
         public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
             super.onCaptureCompleted(session, request, result);
-            Toast.makeText(getActivity(), "Saved:" + file, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Saved:" + appImage.imageId, Toast.LENGTH_SHORT).show();
             createCameraPreview();
         }
     };
@@ -195,35 +202,15 @@ public class CameraPreviewFragment extends Fragment {
             // Orientation
             int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
-            final File file = new File(Environment.getExternalStorageDirectory()+"/pic.jpg");
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                 @Override
                 public void onImageAvailable(ImageReader reader) {
-                    Image image = null;
                     try {
-                        image = reader.acquireLatestImage();
-                        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
-                        byte[] bytes = new byte[buffer.capacity()];
-                        buffer.get(bytes);
-                        save(bytes);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        appImage = new AppImage(UUID.randomUUID(), reader.acquireLatestImage());
+                        storageHandler.saveAppImage(appImage);
                     } finally {
-                        if (image != null) {
-                            image.close();
-                        }
-                    }
-                }
-                private void save(byte[] bytes) throws IOException {
-                    OutputStream output = null;
-                    try {
-                        output = new FileOutputStream(file);
-                        output.write(bytes);
-                    } finally {
-                        if (null != output) {
-                            output.close();
+                        if (appImage != null) {
+                            appImage.image.close();
                         }
                     }
                 }
@@ -233,7 +220,7 @@ public class CameraPreviewFragment extends Fragment {
                 @Override
                 public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
                     super.onCaptureCompleted(session, request, result);
-                    Toast.makeText(getActivity(), "Saved:" + file, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Saved:" + appImage.imageId, Toast.LENGTH_SHORT).show();
                     createCameraPreview();
                 }
             };

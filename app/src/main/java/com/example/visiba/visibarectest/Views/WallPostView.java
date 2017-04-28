@@ -22,12 +22,12 @@ public class WallPostView extends View
         super(context);
 
         leftImage = new ImageView(context);
-        leftImage.setImageDrawable(wallPost.leftImage.image);
+        leftImage.setImageDrawable(wallPost.leftImage.drawableImage);
 
         textContent = new TextView(context);
         textContent.setText(wallPost.textContent);
 
         rightImage = new ImageView(context);
-        rightImage.setImageDrawable(wallPost.rightImage.image);
+        rightImage.setImageDrawable(wallPost.rightImage.drawableImage);
     }
 }

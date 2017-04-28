@@ -1,97 +1,88 @@
 package com.example.visiba.visibarectest.Handlers;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.widget.ImageView;
 
-import com.example.papersoccer.visibarectest.R;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.WallPost;
 
+import junit.framework.Assert;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 public class StorageHandler
 {
-    private final String myWallPostsFilename = "myWallPosts";
-    private final String myImagesFilename = "myImages";
+    private String appDirectory;
+    private final String myWallPostsDirectory = File.separator+"MyWallPosts";
+    private final String myImagesDirectory = File.separator+"MyImages";
     Context context;
 
     public StorageHandler(Context context)
     {
         this.context = context;
+        appDirectory = String.format("%s", context.getFilesDir().getPath());
     }
 
     public void SaveWallPostData(WallPost wallPost)
     {
-        int homeScore;
-        byte[] homeScoreBytes = new byte[4];
-
-        homeScoreBytes[0] = Byte.parseByte(wallPost.leftImage.imageId.toString());
-        homeScoreBytes[1] = Byte.parseByte(wallPost.textContent);
-        homeScoreBytes[2] = Byte.parseByte(wallPost.rightImage.imageId.toString());
-        homeScoreBytes[3] = Byte.parseByte(wallPost.postedDate.toString());
-
-        FileOutputStream outputStream = null;
-        try {
-            outputStream = context.openFileOutput(myWallPostsFilename, Context.MODE_PRIVATE);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            outputStream.write(homeScoreBytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
-    public String saveAppImage(AppImage appImage){
-        ContextWrapper cw = new ContextWrapper(context);
-
-        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        File mypath = new File(directory, String.valueOf(appImage.imageId));
-
-        return "";
-        /*Bitmap bitmapImage = BitmapFactory.(appImage.image);
-
-        FileOutputStream fos = null;
+    public void save(byte[] bytes, String directory, String fileName) throws IOException {
+        File file = new File(String.format("%s%s%s%s", appDirectory, directory, File.separator ,fileName));
+        file.createNewFile();
+        OutputStream output = null;
         try {
-            fos = new FileOutputStream(mypath);
-            // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
-        } catch (Exception e) {
-            e.printStackTrace();
+            output = new FileOutputStream(file);
+            output.write(bytes);
         } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (null != output) {
+                output.close();
             }
         }
-        return directory.getAbsolutePath();*/
     }
 
-    private Bitmap loadImageFromStorage(String path)
+    private void CreateDirectoryIfNotExsits(String path)
     {
-        try {
-            File f=new File(path, "profile.jpg");
-            return BitmapFactory.decodeStream(new FileInputStream(f));
-        }
-        catch (FileNotFoundException e)
+        File filePath = new File(appDirectory+path);
+        if(!filePath.exists())
         {
+            filePath.mkdir();
+        }
+    }
+
+    public void saveAppImage(AppImage appImage){
+        ByteBuffer buffer = appImage.image.getPlanes()[0].getBuffer();
+        byte[] bytes = new byte[buffer.capacity()];
+        buffer.get(bytes);
+        try {
+            CreateDirectoryIfNotExsits(myImagesDirectory);
+            save(bytes, myImagesDirectory, appImage.CreateFileName("jpg"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+    }
+
+    public ArrayList<AppImage> loadAllImagesFromStorage() {
+        ArrayList<AppImage> appImageArrayList = new ArrayList<>();
+        File dir = new File(appDirectory + myImagesDirectory);
+        File[] filelist = dir.listFiles();
+
+        if (filelist == null) return new ArrayList<>();
+
+        for (File file : filelist)
+        {
+            String fileName = file.getName().split("\\.")[0];
+            AppImage appImage = new AppImage(UUID.fromString(fileName), BitmapFactory.decodeFile(file.getPath()), new Date(file.lastModified()), context);
+            appImageArrayList.add(appImage);
+        }
+        return appImageArrayList;
     }
 }
