@@ -25,10 +25,6 @@ import java.util.Collections;
  */
 
 public class CameraGalleryRollFragment extends Fragment implements IResultReturning<AppImage> {
-    public static Fragment newInstance() {
-        CameraGalleryRollFragment fragmentFirst = new CameraGalleryRollFragment();;
-        return fragmentFirst;
-    }
 
     private StorageHandler storageHandler;
     private GridView cameraRollGalleryGrid;

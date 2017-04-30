@@ -1,10 +1,6 @@
 package com.example.visiba.visibarectest.Activites;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,27 +9,32 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.papersoccer.visibarectest.R;
-import com.example.visiba.visibarectest.Adapters.CameraFragmentAdapter;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
-import com.example.visiba.visibarectest.Fragments.CameraGalleryRollFragment;
-import com.example.visiba.visibarectest.Fragments.CameraPreviewFragment;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 public class CameraActivity extends AppCompatActivity implements IResultReturning<AppImage> {
     ViewPager mViewPager;
-    LinearLayout cameraRollCurtainLayout;
-    FragmentPagerAdapter adapterView;
+    SlidingUpPanelLayout mSlindingUpPanelLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        mViewPager = (ViewPager)findViewById(R.id.viewpager);
-        adapterView = new CameraFragmentAdapter(getSupportFragmentManager());;
-        mViewPager.setAdapter(adapterView);
+        mSlindingUpPanelLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout);
 
-        cameraRollCurtainLayout = (LinearLayout) findViewById(R.id.cameraRollCurtainLayout);
+        mSlindingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.SimplePanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+                super.onPanelSlide(panel, slideOffset);
+            }
+
+            @Override
+            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+                super.onPanelStateChanged(panel, previousState, newState);
+            }
+        });
     }
 
     public void onCameraRollCurtainLayoutClick(View v) {

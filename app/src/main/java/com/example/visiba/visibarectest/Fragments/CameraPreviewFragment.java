@@ -57,10 +57,6 @@ import com.example.visiba.visibarectest.Handlers.StorageHandler;
  */
 
 public class CameraPreviewFragment extends Fragment implements IResultReturning<AppImage> {
-    public static Fragment newInstance() {
-        CameraPreviewFragment fragmentFirst = new CameraPreviewFragment();
-        return fragmentFirst;
-    }
 
     private static final String TAG = "AndroidCameraApi";
     private ImageButton takePictureButton;
