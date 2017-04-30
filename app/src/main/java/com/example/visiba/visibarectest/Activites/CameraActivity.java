@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.papersoccer.visibarectest.R;
+import com.example.visiba.visibarectest.Adapters.CameraFragmentAdapter;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
 import com.example.visiba.visibarectest.Fragments.CameraGalleryRollFragment;
@@ -29,7 +30,7 @@ public class CameraActivity extends AppCompatActivity implements IResultReturnin
         setContentView(R.layout.activity_camera);
 
         mViewPager = (ViewPager)findViewById(R.id.viewpager);
-        adapterView = new MyPagerAdapter(getSupportFragmentManager());;
+        adapterView = new CameraFragmentAdapter(getSupportFragmentManager());;
         mViewPager.setAdapter(adapterView);
 
         cameraRollCurtainLayout = (LinearLayout) findViewById(R.id.cameraRollCurtainLayout);
@@ -37,6 +38,15 @@ public class CameraActivity extends AppCompatActivity implements IResultReturnin
 
     public void onCameraRollCurtainLayoutClick(View v) {
         mViewPager.setCurrentItem(mViewPager.getCurrentItem() ^ 1, true);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mViewPager.getCurrentItem() == 1) {
+            mViewPager.setCurrentItem(0, true);
+        } else {
+            super.onBackPressed(); // This will pop the Activity from the stack.
+        }
     }
 
     public void Finish(AppImage appImage)
@@ -48,39 +58,4 @@ public class CameraActivity extends AppCompatActivity implements IResultReturnin
         setResult(RESULT_OK, intent);
         finish();
     }
-
-    public static class MyPagerAdapter extends FragmentPagerAdapter {
-        private static int NUM_ITEMS = 2;
-
-        public MyPagerAdapter(FragmentManager fragmentManager) {
-            super(fragmentManager);
-        }
-
-        // Returns total number of pages
-        @Override
-        public int getCount() {
-            return NUM_ITEMS;
-        }
-
-        // Returns the fragment to display for that page
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return CameraPreviewFragment.newInstance();
-                case 1:
-                    return CameraGalleryRollFragment.newInstance();
-                default:
-                    return null;
-            }
-        }
-
-        // Returns the page title for the top indicator
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return "Page " + position;
-        }
-
-    }
-
 }

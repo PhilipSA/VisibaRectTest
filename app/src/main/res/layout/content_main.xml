@@ -35,14 +35,20 @@
                 android:onClick="onLeftImageButtonClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_album_rund"/>
+                android:maxHeight="20dp"
+                android:maxWidth="20dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/ic_album_rund"/>
 
             <ImageButton
                 android:id="@+id/rightImageButton"
                 android:onClick="onRightImageButtonClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_album_rund"/>
+                android:maxHeight="20dp"
+                android:maxWidth="20dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/ic_album_rund"/>
 
             <Button
                 android:id="@+id/sendWallPostButton"

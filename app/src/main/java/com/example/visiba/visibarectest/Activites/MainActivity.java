@@ -17,9 +17,8 @@ import android.widget.ListView;
 import com.example.papersoccer.visibarectest.R;
 import com.example.visiba.visibarectest.Adapters.WallPostAdapter;
 import com.example.visiba.visibarectest.AppImage;
-import com.example.visiba.visibarectest.Enums.ImageRequestCode;
+import com.example.visiba.visibarectest.Enums.ImageRequestCodeEnum;
 import com.example.visiba.visibarectest.Handlers.StorageHandler;
-import com.example.visiba.visibarectest.Views.WallPostView;
 import com.example.visiba.visibarectest.WallPost;
 import com.example.visiba.visibarectest.Handlers.WallPostsHandler;
 
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        if (requestCode == ImageRequestCode.LEFT) {
+        if (requestCode == ImageRequestCodeEnum.LEFT) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 String imageId = data.getStringExtra("IMAGE_ID");
@@ -105,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 leftImage = appImage;
             }
         }
-        else if (requestCode == ImageRequestCode.RIGHT) {
+        else if (requestCode == ImageRequestCodeEnum.RIGHT) {
             if (resultCode == RESULT_OK) {
                 String imageId = data.getStringExtra("IMAGE_ID");
                 AppImage appImage = storageHandler.loadImagesFromStorage(imageId + ".jpg");
@@ -118,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
     public void onLeftImageButtonClick(View v)
     {
         try {
-            OpenCameraActivity(ImageRequestCode.LEFT);
+            OpenCameraActivity(ImageRequestCodeEnum.LEFT);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRightImageButtonClick(View v)
     {
         try {
-            OpenCameraActivity(ImageRequestCode.RIGHT);
+            OpenCameraActivity(ImageRequestCodeEnum.RIGHT);
         } catch (Exception e) {
             e.printStackTrace();
         }

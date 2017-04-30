@@ -37,7 +37,7 @@ public class StorageHandler
         File dir = new File(appDirectory+myWallPostsDirectory+serializeableWallPost.id);
         FileOutputStream fileOutputStream = null;
         try {
-            CreateDirectoryIfNotExsits(myWallPostsDirectory);
+            CreateDirectoryIfNotExists(myWallPostsDirectory);
             fileOutputStream = new FileOutputStream(dir);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -95,7 +95,7 @@ public class StorageHandler
         }
     }
 
-    private void CreateDirectoryIfNotExsits(String path)
+    private void CreateDirectoryIfNotExists(String path)
     {
         File filePath = new File(appDirectory+path);
         if(!filePath.exists())
@@ -109,7 +109,7 @@ public class StorageHandler
         byte[] bytes = new byte[buffer.capacity()];
         buffer.get(bytes);
         try {
-            CreateDirectoryIfNotExsits(myImagesDirectory);
+            CreateDirectoryIfNotExists(myImagesDirectory);
             save(bytes, myImagesDirectory, appImage.CreateFileName("jpg"));
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,7 +121,6 @@ public class StorageHandler
         if (!file.exists()) return null;
 
         String fileName = file.getName().split("\\.")[0];
-
 
         return new AppImage(UUID.fromString(fileName), BitmapFactory.decodeFile(file.getPath()), new Date(file.lastModified()), context);
     }

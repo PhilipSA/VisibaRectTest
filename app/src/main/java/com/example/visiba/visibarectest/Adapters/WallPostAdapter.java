@@ -13,10 +13,6 @@ import com.example.visiba.visibarectest.WallPost;
 
 import java.util.ArrayList;
 
-/**
- * Created by Admin on 2017-04-28.
- */
-
 public class WallPostAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<WallPost> wallPosts;

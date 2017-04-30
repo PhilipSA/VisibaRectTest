@@ -118,7 +118,13 @@ public class CameraPreviewFragment extends Fragment implements IResultReturning<
     }
 
     public void Finish(AppImage appImage) {
-        ((CameraActivity)getActivity()).Finish(appImage);
+        if (appImage != null)
+        {
+            ((CameraActivity)getActivity()).Finish(appImage);
+        }
+        else {
+            getActivity().finish();
+        }
     };
 
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener()
