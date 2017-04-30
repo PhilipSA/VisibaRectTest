@@ -14,7 +14,6 @@ import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 public class CameraActivity extends AppCompatActivity implements IResultReturning<AppImage> {
-    ViewPager mViewPager;
     SlidingUpPanelLayout mSlindingUpPanelLayout;
 
     @Override
@@ -38,16 +37,12 @@ public class CameraActivity extends AppCompatActivity implements IResultReturnin
     }
 
     public void onCameraRollCurtainLayoutClick(View v) {
-        mViewPager.setCurrentItem(mViewPager.getCurrentItem() ^ 1, true);
+        mSlindingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
     }
 
     @Override
     public void onBackPressed() {
-        if(mViewPager.getCurrentItem() == 1) {
-            mViewPager.setCurrentItem(0, true);
-        } else {
-            super.onBackPressed(); // This will pop the Activity from the stack.
-        }
+        super.onBackPressed();
     }
 
     public void Finish(AppImage appImage)

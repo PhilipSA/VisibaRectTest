@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     sothree:umanoPanelHeight="68dp"
-    sothree:umanoShadowHeight="4dp">
+    sothree:umanoShadowHeight="4dp"
+    android:onClick="onCameraRollCurtainLayoutClick">
 
         <fragment
             android:layout_width="match_parent"
@@ -21,5 +22,6 @@
             android:layout_height="match_parent"
             android:gravity="center|top"
             android:name="com.example.visiba.visibarectest.Fragments.CameraGalleryRollFragment"
-            android:textSize="16sp" />
+            android:textSize="16sp">
+        </fragment>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
