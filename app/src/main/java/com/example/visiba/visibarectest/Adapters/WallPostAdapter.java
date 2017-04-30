@@ -45,10 +45,9 @@ public class WallPostAdapter extends BaseAdapter {
         ImageView rightImageView = (ImageView)view.findViewById(R.id.rightImageView);
 
         if (wallPosts.get(position).leftImage != null) leftImageView.setImageDrawable(wallPosts.get(position).leftImage.drawableImage);
-
         textContentView.setText(wallPosts.get(position).textContent);
-
         if (wallPosts.get(position).rightImage != null)rightImageView.setImageDrawable(wallPosts.get(position).rightImage.drawableImage);
+
         return view;
     }
 }

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.example.papersoccer.visibarectest.R;
 import com.example.visiba.visibarectest.Adapters.WallPostAdapter;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     EditText newPostInput;
-    LinearLayout newPostButtonsLayout;
+    RelativeLayout newPostButtonsLayout;
     WallPostsHandler wallPostsHandler;
     ListView wallPostsListView;
 
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         leftImageButton = (ImageButton)findViewById(R.id.leftImageButton);
         rightImageButton = (ImageButton)findViewById(R.id.rightImageButton);
 
-        newPostButtonsLayout = (LinearLayout)findViewById(R.id.newPostButtonsLayout);
+        newPostButtonsLayout = (RelativeLayout)findViewById(R.id.newPostButtonsLayout);
 
         storageHandler = new StorageHandler(this);
         wallPostsHandler = new WallPostsHandler(storageHandler);
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     {
         WallPost wallPost = new WallPost(newPostInput.getText().toString(), leftImage, rightImage);
         storageHandler.SaveWallPostData(new WallPost.SerializableWallPost(wallPost));
+        populateWallPostsListView();
     }
 
     public void OpenCameraActivity(int imageButtonRequestCode)
@@ -99,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 String imageId = data.getStringExtra("IMAGE_ID");
-                AppImage appImage = storageHandler.loadImagesFromStorage(imageId + ".jpg");
+                AppImage appImage = storageHandler.loadImagesFromStorage(imageId);
                 leftImageButton.setImageDrawable(appImage.drawableImage);
                 leftImage = appImage;
             }
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         else if (requestCode == ImageRequestCodeEnum.RIGHT) {
             if (resultCode == RESULT_OK) {
                 String imageId = data.getStringExtra("IMAGE_ID");
-                AppImage appImage = storageHandler.loadImagesFromStorage(imageId + ".jpg");
+                AppImage appImage = storageHandler.loadImagesFromStorage(imageId);
                 rightImageButton.setImageDrawable(appImage.drawableImage);
                 rightImage = appImage;
             }

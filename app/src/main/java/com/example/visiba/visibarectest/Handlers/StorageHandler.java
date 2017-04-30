@@ -117,7 +117,7 @@ public class StorageHandler
     }
 
     public AppImage loadImagesFromStorage(String imageName){
-        File file = new File(appDirectory + myImagesDirectory + imageName);
+        File file = new File(appDirectory + myImagesDirectory + imageName + ".jpg");
         if (!file.exists()) return null;
 
         String fileName = file.getName().split("\\.")[0];
