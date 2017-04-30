@@ -49,6 +49,7 @@ import java.util.UUID;
 import com.example.papersoccer.visibarectest.R;
 import com.example.visiba.visibarectest.Activites.CameraActivity;
 import com.example.visiba.visibarectest.AppImage;
+import com.example.visiba.visibarectest.Enums.CameraTypeEnum;
 import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
 import com.example.visiba.visibarectest.Handlers.StorageHandler;
 
@@ -59,8 +60,12 @@ import com.example.visiba.visibarectest.Handlers.StorageHandler;
 public class CameraPreviewFragment extends Fragment implements IResultReturning<AppImage> {
 
     private static final String TAG = "AndroidCameraApi";
+
     private ImageButton takePictureButton;
     private ImageButton exitCameraImageButton;
+    private ImageButton swapCameraImageButton;
+    private int currentCamera = 0;
+
     private TextureView textureView;
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     static {
@@ -92,12 +97,22 @@ public class CameraPreviewFragment extends Fragment implements IResultReturning<
         textureView = (TextureView)view.findViewById(R.id.cameraPreviewSurfaceView);
         assert textureView != null;
         textureView.setSurfaceTextureListener(textureListener);
+
         takePictureButton = (ImageButton)view.findViewById(R.id.takePhotoImageButton);
         assert takePictureButton != null;
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 takePicture();
+            }
+        });
+
+        swapCameraImageButton = (ImageButton)view.findViewById(R.id.swapCameraImageButton);
+        assert swapCameraImageButton != null;
+        swapCameraImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swapCamera();
             }
         });
 
@@ -121,14 +136,21 @@ public class CameraPreviewFragment extends Fragment implements IResultReturning<
         else {
             getActivity().finish();
         }
-    };
+    }
+
+    private void swapCamera()
+    {
+        currentCamera = currentCamera == CameraTypeEnum.BACK ? CameraTypeEnum.FRONT : CameraTypeEnum.BACK;
+        closeCamera();
+        openCamera(currentCamera);
+    }
 
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener()
     {
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
             //open your camera here
-            openCamera();
+            openCamera(currentCamera);
         }
         @Override
         public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
@@ -288,12 +310,12 @@ public class CameraPreviewFragment extends Fragment implements IResultReturning<
         }
     }
 
-    private void openCamera()
+    private void openCamera(int cameraTypeEnum)
     {
         CameraManager manager = (CameraManager) getActivity().getSystemService(Context.CAMERA_SERVICE);
         Log.e(TAG, "is camera open");
         try {
-            cameraId = manager.getCameraIdList()[0];
+            cameraId = manager.getCameraIdList()[cameraTypeEnum];
             CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
             StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
             assert map != null;

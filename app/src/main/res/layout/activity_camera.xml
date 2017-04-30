@@ -8,6 +8,7 @@
     android:gravity="bottom"
     sothree:umanoPanelHeight="68dp"
     sothree:umanoShadowHeight="4dp"
+    style="@style/AppTheme"
     android:onClick="onCameraRollCurtainLayoutClick">
 
         <fragment
