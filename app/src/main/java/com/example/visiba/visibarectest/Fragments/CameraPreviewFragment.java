@@ -53,10 +53,6 @@ import com.example.visiba.visibarectest.Enums.CameraTypeEnum;
 import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
 import com.example.visiba.visibarectest.Handlers.StorageHandler;
 
-/**
- * Created by Admin on 2017-04-27.
- */
-
 public class CameraPreviewFragment extends Fragment implements IResultReturning<AppImage> {
 
     private static final String TAG = "AndroidCameraApi";
