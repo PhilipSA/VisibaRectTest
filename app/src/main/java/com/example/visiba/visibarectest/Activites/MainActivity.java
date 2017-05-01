@@ -26,13 +26,14 @@ import com.example.visiba.visibarectest.Adapters.WallPostAdapter;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Enums.ImageRequestCodeEnum;
 import com.example.visiba.visibarectest.Handlers.StorageHandler;
+import com.example.visiba.visibarectest.LanguageHandler;
 import com.example.visiba.visibarectest.WallPost;
 import com.example.visiba.visibarectest.Handlers.WallPostsHandler;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     EditText newPostInput;
     RelativeLayout newPostButtonsLayout;
@@ -157,41 +158,5 @@ public class MainActivity extends AppCompatActivity {
 
         WallPostAdapter wallPostAdapter = new WallPostAdapter(getBaseContext(), wallPosts);
         wallPostsListView.setAdapter(wallPostAdapter);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_swedish) {
-            setLocale("sv");
-        }
-        else if (id == R.id.action_english)
-        {
-            setLocale("en");
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void setLocale(String lang) {
-
-        Locale myLocale = new Locale(lang);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
     }
 }

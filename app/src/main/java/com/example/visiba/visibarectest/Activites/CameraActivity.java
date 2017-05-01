@@ -15,7 +15,7 @@ import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-public class CameraActivity extends AppCompatActivity implements IResultReturning<AppImage> {
+public class CameraActivity extends BaseActivity implements IResultReturning<AppImage> {
 
     SlidingUpPanelLayout mSlindingUpPanelLayout;
     ImageView cameraRollSliderHeaderArrow;

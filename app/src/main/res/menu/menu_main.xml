@@ -3,15 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.papersoccer.visibarectest.visibarectest.MainActivity">
     <item
-        android:id="@+id/action_english"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
-        android:icon="@mipmap/ic_launcher"
-        android:title="Svenska"/>
-    <item
         android:id="@+id/action_swedish"
-        android:orderInCategory="100"
         app:showAsAction="ifRoom"
-        android:icon="@mipmap/ic_launcher"
+        android:title="Svenska" />
+    <item
+        android:id="@+id/action_english"
+        app:showAsAction="ifRoom"
         android:title="English"/>
 </menu>
