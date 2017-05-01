@@ -36,13 +36,15 @@ public class CameraActivity extends AppCompatActivity implements IResultReturnin
         });
     }
 
-    public void onCameraRollCurtainLayoutClick(View v) {
-        mSlindingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-    }
-
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (mSlindingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED)
+        {
+            mSlindingUpPanelLayout.setPanelState( SlidingUpPanelLayout.PanelState.COLLAPSED );
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
     public void Finish(AppImage appImage)
