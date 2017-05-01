@@ -49,6 +49,8 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         imageView.setImageDrawable(images.get(position).drawableImage);
+        imageView.setAdjustViewBounds(true);
+
         return imageView;
     }
 }

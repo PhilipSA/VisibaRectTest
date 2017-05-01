@@ -14,6 +14,7 @@
     <color name="colorCameraButton">#FFFFFF</color>
     
     <color name="colorCameraOverlay">#008296CC</color>
+    <color name="transparentColorCameraOverlay">#EE8296CC</color>
 
     <color name="colorInput">#ebebeb</color>
     <color name="colorInputPlaceholder">#cccccc</color>
