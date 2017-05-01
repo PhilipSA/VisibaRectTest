@@ -1,6 +1,7 @@
 package com.example.visiba.visibarectest.Adapters;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class WallPostAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<WallPost> wallPosts;
+    private final int imageSizePx = 90;
 
     public WallPostAdapter(Context context, ArrayList<WallPost> wallPosts) {
         mContext = context;
@@ -44,9 +46,15 @@ public class WallPostAdapter extends BaseAdapter {
         TextView textContentView = (TextView) view.findViewById(R.id.textContentView);
         ImageView rightImageView = (ImageView)view.findViewById(R.id.rightImageView);
 
-        if (wallPosts.get(position).leftImage != null) leftImageView.setImageDrawable(wallPosts.get(position).leftImage.drawableImage);
+        if (wallPosts.get(position).leftImage != null){
+            leftImageView.setImageDrawable(wallPosts.get(position).leftImage.drawableImage);
+            leftImageView.setClipToOutline(true);
+        }
         textContentView.setText(wallPosts.get(position).textContent);
-        if (wallPosts.get(position).rightImage != null)rightImageView.setImageDrawable(wallPosts.get(position).rightImage.drawableImage);
+        if (wallPosts.get(position).rightImage != null) {
+            rightImageView.setImageDrawable(wallPosts.get(position).rightImage.drawableImage);
+            rightImageView.setClipToOutline(true);
+        }
 
         return view;
     }
