@@ -39,18 +39,19 @@ public class CameraActivity extends AppCompatActivity implements IResultReturnin
 
             @Override
             public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-                super.onPanelStateChanged(panel, previousState, newState);
-
                 if ((newState == SlidingUpPanelLayout.PanelState.EXPANDED && previousState == SlidingUpPanelLayout.PanelState.DRAGGING) ||
                         (newState == SlidingUpPanelLayout.PanelState.DRAGGING && previousState == SlidingUpPanelLayout.PanelState.COLLAPSED))
                 {
                     ((SlidingUpPanelLayout)panel).setOverlayed(false);
                 }
-                else if (newState == SlidingUpPanelLayout.PanelState.COLLAPSED && previousState == SlidingUpPanelLayout.PanelState.DRAGGING)
+                else if ((newState == SlidingUpPanelLayout.PanelState.COLLAPSED && previousState == SlidingUpPanelLayout.PanelState.DRAGGING) ||
+                        (newState == SlidingUpPanelLayout.PanelState.DRAGGING && previousState == SlidingUpPanelLayout.PanelState.EXPANDED))
                 {
                     ((SlidingUpPanelLayout)panel).setOverlayed(true);
                 }
                 updateCameraRollSliderHeaderLayout(newState);
+
+                super.onPanelStateChanged(panel, previousState, newState);
             }
         });
     }
