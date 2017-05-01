@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VisibaRecTest</string>
+    <string name="camera_roll_header_text">Kamerarulle</string>
+    <string name="send_wall_post_button">Skicka</string>
+    <string name="wall_post_edit_text">Skriv här</string>
+    <string name="action_settings">Inställningar</string>
+</resources>

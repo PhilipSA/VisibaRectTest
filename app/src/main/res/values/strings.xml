@@ -2,6 +2,7 @@
     <string name="app_name">VisibaRecTest</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="wall_post_edit_text">Type here</string>
+    <string name="send_wall_post_button">Send</string>
+    <string name="camera_roll_header_text">Camera roll</string>
 </resources>
