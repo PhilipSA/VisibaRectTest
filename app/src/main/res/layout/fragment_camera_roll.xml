@@ -5,7 +5,8 @@
     style="@style/AppTheme"
     tools:context="com.example.visiba.visibarectest.Fragments.CameraGalleryRollFragment">
 
-    <include layout="@layout/camera_roll_slider_header"/>
+    <include layout="@layout/camera_roll_slider_header"
+        android:id="@+id/cameraRollSliderHeaderLayout" />
 
     <GridView
         android:id="@+id/cameraRollGalleryGrid"
@@ -16,6 +17,6 @@
         android:numColumns="auto_fit"
         android:scrollbars="vertical"
         android:stretchMode="columnWidth"
-        android:layout_below="@+id/relativeLayout" />
+        android:layout_below="@+id/cameraRollSliderHeaderLayout" />
 
 </RelativeLayout>

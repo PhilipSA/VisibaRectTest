@@ -9,6 +9,7 @@
     <color name="colorDivider">#ebebeb</color>
 
     <color name="colorButton">#008296</color>
+    <color name="transparentColorButton">#8C008296</color>
 
     <color name="colorCameraButton">#FFFFFF</color>
     
