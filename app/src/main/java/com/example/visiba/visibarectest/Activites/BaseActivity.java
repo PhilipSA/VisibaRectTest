@@ -7,10 +7,6 @@ import android.view.MenuItem;
 import com.example.papersoccer.visibarectest.R;
 import com.example.visiba.visibarectest.LanguageHandler;
 
-/**
- * Created by Admin on 2017-05-01.
- */
-
 public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -70,11 +70,18 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:layout_below="@+id/frameLayout">
             <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
+                android:smoothScrollbar="true"
+                android:scrollbarStyle="outsideOverlay"
+                android:fadeScrollbars="false"
+                android:divider="@color/colorDivider"
+                android:dividerHeight="2dp"
+                android:headerDividersEnabled="true"
                 android:id="@+id/wallPostsListView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true">
