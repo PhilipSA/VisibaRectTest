@@ -50,7 +50,9 @@ public class WallPostAdapter extends BaseAdapter {
             leftImageView.setImageDrawable(wallPosts.get(position).leftImage.drawableImage);
             leftImageView.setClipToOutline(true);
         }
+
         textContentView.setText(wallPosts.get(position).textContent);
+
         if (wallPosts.get(position).rightImage != null) {
             rightImageView.setImageDrawable(wallPosts.get(position).rightImage.drawableImage);
             rightImageView.setClipToOutline(true);

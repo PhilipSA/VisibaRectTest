@@ -1,6 +1,8 @@
 package com.example.visiba.visibarectest.Activites;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -84,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     {
         WallPost wallPost = new WallPost(newPostInput.getText().toString(), leftImage, rightImage);
         storageHandler.SaveWallPostData(new WallPost.SerializableWallPost(wallPost));
-        populateWallPostsListView();
+        recreate();
     }
 
     public void OpenCameraActivity(int imageButtonRequestCode)
@@ -101,19 +104,23 @@ public class MainActivity extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 String imageId = data.getStringExtra("IMAGE_ID");
-                AppImage appImage = storageHandler.loadImagesFromStorage(imageId);
-                leftImageButton.setImageDrawable(appImage.drawableImage);
-                leftImage = appImage;
+                leftImage = setImageButtonPreviewImage(leftImageButton, imageId);;
             }
         }
         else if (requestCode == ImageRequestCodeEnum.RIGHT) {
             if (resultCode == RESULT_OK) {
                 String imageId = data.getStringExtra("IMAGE_ID");
-                AppImage appImage = storageHandler.loadImagesFromStorage(imageId);
-                rightImageButton.setImageDrawable(appImage.drawableImage);
-                rightImage = appImage;
+                rightImage = setImageButtonPreviewImage(rightImageButton, imageId);
             }
         }
+    }
+
+    private AppImage setImageButtonPreviewImage(ImageButton imageButton, String imageId)
+    {
+        AppImage appImage = storageHandler.loadImagesFromStorage(imageId);
+        imageButton.setImageDrawable(appImage.drawableImage);
+        imageButton.setImageTintList(null); // White Tint
+        return appImage;
     }
 
     public void onLeftImageButtonClick(View v)

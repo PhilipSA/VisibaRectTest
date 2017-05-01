@@ -16,6 +16,7 @@
             android:id="@+id/newPostInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorButton"
             android:hint="Hint text"
             android:layout_marginRight="8dp"
             android:layout_alignParentEnd="true"

@@ -16,14 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:name="com.example.visiba.visibarectest.Fragments.CameraPreviewFragment"
-            android:textSize="16sp" />
+            android:name="com.example.visiba.visibarectest.Fragments.CameraPreviewFragment" />
 
         <fragment
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center|top"
-            android:name="com.example.visiba.visibarectest.Fragments.CameraGalleryRollFragment"
-            android:textSize="16sp">
-        </fragment>
+            android:name="com.example.visiba.visibarectest.Fragments.CameraGalleryRollFragment"/>
+
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

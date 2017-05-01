@@ -33,8 +33,6 @@
     <style name="WallPostImageViewStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:maxWidth">95dp</item>
-        <item name="android:maxHeight">95dp</item>
         <item name="android:background">@drawable/round_outline</item>
         <item name="android:windowClipToOutline">true</item>
         <item name="android:adjustViewBounds">true</item>
