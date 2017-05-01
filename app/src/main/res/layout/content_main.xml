@@ -59,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="onSendWallPostClick"
                 android:background="@color/colorButton"
+                style="@style/DefaultButtonTextStyle"
                 android:text="@string/send_wall_post_button"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"

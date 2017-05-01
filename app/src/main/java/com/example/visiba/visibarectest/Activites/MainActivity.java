@@ -1,23 +1,13 @@
 package com.example.visiba.visibarectest.Activites;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -25,22 +15,21 @@ import com.example.papersoccer.visibarectest.R;
 import com.example.visiba.visibarectest.Adapters.WallPostAdapter;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Enums.ImageRequestCodeEnum;
-import com.example.visiba.visibarectest.Handlers.StorageHandler;
-import com.example.visiba.visibarectest.LanguageHandler;
+import com.example.visiba.visibarectest.Repositories.Abstractions.BaseRepository;
+import com.example.visiba.visibarectest.Repositories.AppImageRepository;
 import com.example.visiba.visibarectest.WallPost;
-import com.example.visiba.visibarectest.Handlers.WallPostsHandler;
+import com.example.visiba.visibarectest.Repositories.WallPostRepository;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class MainActivity extends BaseActivity {
 
     EditText newPostInput;
     RelativeLayout newPostButtonsLayout;
-    WallPostsHandler wallPostsHandler;
     ListView wallPostsListView;
 
-    StorageHandler storageHandler;
+    WallPostRepository wallPostRepository;
+    AppImageRepository appImageRepository;
 
     ImageButton leftImageButton;
     ImageButton rightImageButton;
@@ -64,8 +53,8 @@ public class MainActivity extends BaseActivity {
 
         newPostButtonsLayout = (RelativeLayout)findViewById(R.id.newPostButtonsLayout);
 
-        storageHandler = new StorageHandler(this);
-        wallPostsHandler = new WallPostsHandler(storageHandler);
+        appImageRepository = new AppImageRepository(this);
+        wallPostRepository = new WallPostRepository(this, appImageRepository);
 
         populateWallPostsListView();
 
@@ -92,7 +81,7 @@ public class MainActivity extends BaseActivity {
     public void onSendWallPostClick(View view)
     {
         WallPost wallPost = new WallPost(newPostInput.getText().toString(), leftImage, rightImage);
-        storageHandler.SaveWallPostData(new WallPost.SerializableWallPost(wallPost));
+        wallPostRepository.SaveWallPostData(new WallPost.SerializableWallPost(wallPost));
         recreate();
     }
 
@@ -123,7 +112,7 @@ public class MainActivity extends BaseActivity {
 
     private AppImage setImageButtonPreviewImage(ImageButton imageButton, String imageId)
     {
-        AppImage appImage = storageHandler.loadImagesFromStorage(imageId);
+        AppImage appImage = appImageRepository.loadImagesFromStorage(imageId);
         imageButton.setImageDrawable(appImage.drawableImage);
         imageButton.setImageTintList(null); // White Tint
         return appImage;
@@ -151,9 +140,9 @@ public class MainActivity extends BaseActivity {
     {
         ArrayList<WallPost> wallPosts = new ArrayList<>();
 
-        for (WallPost.SerializableWallPost serializableWallPost : storageHandler.LoadAllWallPostsFromStorage())
+        for (WallPost.SerializableWallPost serializableWallPost : wallPostRepository.LoadAllWallPostsFromStorage())
         {
-            WallPost wallPost = wallPostsHandler.ConvertSerializableToWallPost(serializableWallPost);
+            WallPost wallPost = wallPostRepository.ConvertSerializableToWallPost(serializableWallPost);
             wallPosts.add(wallPost);
         }
 

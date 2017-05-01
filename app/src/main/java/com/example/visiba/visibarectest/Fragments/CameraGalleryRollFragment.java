@@ -1,9 +1,7 @@
 package com.example.visiba.visibarectest.Fragments;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.os.IResultReceiver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,8 @@ import com.example.visiba.visibarectest.Activites.CameraActivity;
 import com.example.visiba.visibarectest.Adapters.ImageAdapter;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
-import com.example.visiba.visibarectest.Handlers.StorageHandler;
+import com.example.visiba.visibarectest.Repositories.Abstractions.BaseRepository;
+import com.example.visiba.visibarectest.Repositories.AppImageRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +25,7 @@ import java.util.Collections;
 
 public class CameraGalleryRollFragment extends Fragment implements IResultReturning<AppImage> {
 
-    private StorageHandler storageHandler;
+    private AppImageRepository appImageRepository;
     private GridView cameraRollGalleryGrid;
     private View view;
 
@@ -35,7 +34,7 @@ public class CameraGalleryRollFragment extends Fragment implements IResultReturn
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_camera_roll, container, false);
         // Inflate the layout for this fragment
-        storageHandler = new StorageHandler(getContext());
+        appImageRepository = new AppImageRepository(getContext());
         cameraRollGalleryGrid = (GridView)view.findViewById(R.id.cameraRollGalleryGrid);
         displayAllImages();
 
@@ -54,7 +53,7 @@ public class CameraGalleryRollFragment extends Fragment implements IResultReturn
 
     private void displayAllImages()
     {
-        ArrayList<AppImage> appImages = storageHandler.loadAllImagesFromStorage();
+        ArrayList<AppImage> appImages = appImageRepository.loadAllImagesFromStorage();
         Collections.sort(appImages);
 
         ImageAdapter imageAdapter = new ImageAdapter(getContext(), appImages);

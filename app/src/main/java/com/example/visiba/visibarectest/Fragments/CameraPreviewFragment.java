@@ -14,16 +14,13 @@ import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
-import android.media.Image;
 import android.media.ImageReader;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -32,15 +29,9 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.ByteBuffer;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +42,8 @@ import com.example.visiba.visibarectest.Activites.CameraActivity;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Enums.CameraTypeEnum;
 import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
-import com.example.visiba.visibarectest.Handlers.StorageHandler;
+import com.example.visiba.visibarectest.Repositories.Abstractions.BaseRepository;
+import com.example.visiba.visibarectest.Repositories.AppImageRepository;
 
 public class CameraPreviewFragment extends Fragment implements IResultReturning<AppImage> {
 
@@ -82,7 +74,7 @@ public class CameraPreviewFragment extends Fragment implements IResultReturning<
     private boolean mFlashSupported;
     private Handler mBackgroundHandler;
     private HandlerThread mBackgroundThread;
-    private StorageHandler storageHandler;
+    private AppImageRepository appImageRepository;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,7 +104,7 @@ public class CameraPreviewFragment extends Fragment implements IResultReturning<
             }
         });
 
-        storageHandler = new StorageHandler(getContext());
+        appImageRepository = new AppImageRepository(getContext());
 
         exitCameraImageButton = (ImageButton)view.findViewById(R.id.exitCameraImageButton);
         exitCameraImageButton.setOnClickListener(new View.OnClickListener() {
@@ -240,7 +232,7 @@ public class CameraPreviewFragment extends Fragment implements IResultReturning<
                 public void onImageAvailable(ImageReader reader) {
                     try {
                         appImage = new AppImage(UUID.randomUUID(), reader.acquireLatestImage());
-                        storageHandler.saveAppImage(appImage);
+                        appImageRepository.saveAppImage(appImage);
                     } finally {
                         if (appImage != null) {
                             Finish(appImage);
