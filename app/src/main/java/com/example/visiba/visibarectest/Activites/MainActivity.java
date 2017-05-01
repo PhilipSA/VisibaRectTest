@@ -57,6 +57,7 @@ public class MainActivity extends BaseActivity {
 
         newPostInput = (EditText)findViewById(R.id.newPostInput);
         wallPostsListView = (ListView)findViewById(R.id.wallPostsListView);
+        wallPostsListView.addHeaderView(new View(this));
 
         leftImageButton = (ImageButton)findViewById(R.id.leftImageButton);
         rightImageButton = (ImageButton)findViewById(R.id.rightImageButton);
