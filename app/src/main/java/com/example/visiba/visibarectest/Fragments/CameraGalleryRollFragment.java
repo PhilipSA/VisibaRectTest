@@ -29,7 +29,7 @@ public class CameraGalleryRollFragment extends Fragment implements IResultReturn
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_camera_roll, container, false);
-        // Inflate the layout for this fragment
+
         appImageRepository = new AppImageRepository(getContext());
         cameraRollGalleryGrid = (GridView)view.findViewById(R.id.cameraRollGalleryGrid);
         displayAllImages();

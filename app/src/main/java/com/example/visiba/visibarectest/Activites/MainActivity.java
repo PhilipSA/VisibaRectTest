@@ -94,9 +94,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
         if (requestCode == ImageRequestCodeEnum.LEFT) {
-            // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 String imageId = data.getStringExtra("IMAGE_ID");
                 leftImage = setImageButtonPreviewImage(leftImageButton, imageId);;

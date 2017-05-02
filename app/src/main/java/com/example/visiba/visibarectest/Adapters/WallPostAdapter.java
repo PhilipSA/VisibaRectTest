@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class WallPostAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<WallPost> wallPosts;
-    private final int imageSizePx = 90;
 
     public WallPostAdapter(Context context, ArrayList<WallPost> wallPosts) {
         mContext = context;
@@ -36,9 +35,8 @@ public class WallPostAdapter extends BaseAdapter {
         return 0;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
+        View view;
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.wallpost_layout, parent, false);
 

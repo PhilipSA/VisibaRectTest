@@ -35,11 +35,11 @@ public class AppImageRepository extends BaseRepository
     public ArrayList<AppImage> loadAllImagesFromStorage() {
         ArrayList<AppImage> appImageArrayList = new ArrayList<>();
         File directory = new File(appDirectory + myImagesDirectory);
-        File[] filelist = directory.listFiles();
+        File[] fileList = directory.listFiles();
 
-        if (filelist == null) return new ArrayList<>();
+        if (fileList == null) return new ArrayList<>();
 
-        for (File file : filelist)
+        for (File file : fileList)
         {
             String fileName = file.getName().split("\\.")[0];
             AppImage appImage = new AppImage(UUID.fromString(fileName), BitmapFactory.decodeFile(file.getPath()), new Date(file.lastModified()), context);

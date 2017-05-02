@@ -43,11 +43,11 @@ public class WallPostRepository extends BaseRepository
     {
         ArrayList<WallPost.SerializableWallPost> wallPosts = new ArrayList<>();
         File directory = new File(appDirectory + myWallPostsDirectory);
-        File[] filelist = directory.listFiles();
+        File[] fileList = directory.listFiles();
 
-        if (filelist == null) return new ArrayList<>();
+        if (fileList == null) return new ArrayList<>();
 
-        for (File file : filelist) {
+        for (File file : fileList) {
             FileInputStream fileInputStream = null;
             try {
                 fileInputStream = new FileInputStream(file);
