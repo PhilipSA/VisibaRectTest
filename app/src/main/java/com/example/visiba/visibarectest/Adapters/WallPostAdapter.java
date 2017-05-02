@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.papersoccer.visibarectest.R;
+import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.WallPost;
 
 import java.util.ArrayList;
@@ -35,6 +37,19 @@ public class WallPostAdapter extends BaseAdapter {
         return 0;
     }
 
+    private void setImageViewValues(ImageView imageView, AppImage appImage)
+    {
+        if (appImage != null) {
+            imageView.setImageDrawable(appImage.drawableImage);
+            imageView.setClipToOutline(true);
+        }
+        else {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)imageView.getLayoutParams();
+            params.weight = 0;
+            imageView.setLayoutParams(params);
+        }
+    }
+
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -44,17 +59,9 @@ public class WallPostAdapter extends BaseAdapter {
         TextView textContentView = (TextView) view.findViewById(R.id.textContentView);
         ImageView rightImageView = (ImageView)view.findViewById(R.id.rightImageView);
 
-        if (wallPosts.get(position).leftImage != null){
-            leftImageView.setImageDrawable(wallPosts.get(position).leftImage.drawableImage);
-            leftImageView.setClipToOutline(true);
-        }
-
+        setImageViewValues(leftImageView, wallPosts.get(position).leftImage);
         textContentView.setText(wallPosts.get(position).textContent);
-
-        if (wallPosts.get(position).rightImage != null) {
-            rightImageView.setImageDrawable(wallPosts.get(position).rightImage.drawableImage);
-            rightImageView.setClipToOutline(true);
-        }
+        setImageViewValues(rightImageView, wallPosts.get(position).rightImage);
 
         return view;
     }
