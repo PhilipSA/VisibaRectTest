@@ -8,17 +8,19 @@
 
     <ImageView
         android:id="@+id/leftImageView"
+        android:layout_width="0px"
         style="@style/WallPostImageViewStyle"
         android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/textContentView"
-        android:layout_width="wrap_content"
+        android:layout_width="0px"
         android:layout_height="wrap_content"
-        android:layout_weight="1.2"/>
+        android:layout_weight="2"/>
 
     <ImageView
         android:id="@+id/rightImageView"
+        android:layout_width="0px"
         style="@style/WallPostImageViewStyle"
         android:layout_weight="1"/>
 </LinearLayout>

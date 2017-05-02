@@ -44,10 +44,24 @@ public class WallPostAdapter extends BaseAdapter {
             imageView.setClipToOutline(true);
         }
         else {
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)imageView.getLayoutParams();
-            params.weight = 0;
-            imageView.setLayoutParams(params);
+            setViewWeightParam(imageView, 0);
         }
+    }
+
+    private void setTextWeight(TextView textView, int position)
+    {
+        if (wallPosts.get(position).leftImage == null || wallPosts.get(position).rightImage == null)
+        {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)textView.getLayoutParams();
+            setViewWeightParam(textView, params.weight + 1);
+        }
+    }
+
+    private void setViewWeightParam(View view, float weight)
+    {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)view.getLayoutParams();
+        params.weight = weight;
+        view.setLayoutParams(params);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -62,6 +76,8 @@ public class WallPostAdapter extends BaseAdapter {
         setImageViewValues(leftImageView, wallPosts.get(position).leftImage);
         textContentView.setText(wallPosts.get(position).textContent);
         setImageViewValues(rightImageView, wallPosts.get(position).rightImage);
+
+        setTextWeight(textContentView, position);
 
         return view;
     }
