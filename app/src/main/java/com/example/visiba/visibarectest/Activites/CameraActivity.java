@@ -1,16 +1,13 @@
 package com.example.visiba.visibarectest.Activites;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.papersoccer.visibarectest.R;
+import com.example.visiba.visibarectest.Activites.Abstractions.BaseActivity;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;

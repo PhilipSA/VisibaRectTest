@@ -1,15 +1,8 @@
 package com.example.visiba.visibarectest;
 
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
-
-/**
- * Created by Admin on 2017-04-27.
- */
 
 public class WallPost
 {

@@ -19,10 +19,6 @@ import com.example.visiba.visibarectest.Repositories.AppImageRepository;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created by Admin on 2017-04-27.
- */
-
 public class CameraGalleryRollFragment extends Fragment implements IResultReturning<AppImage> {
 
     private AppImageRepository appImageRepository;

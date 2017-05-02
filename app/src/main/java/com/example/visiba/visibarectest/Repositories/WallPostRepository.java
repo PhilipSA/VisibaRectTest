@@ -42,19 +42,19 @@ public class WallPostRepository extends BaseRepository
     public ArrayList<WallPost.SerializableWallPost> LoadAllWallPostsFromStorage()
     {
         ArrayList<WallPost.SerializableWallPost> wallPosts = new ArrayList<>();
-        File dir = new File(appDirectory + myWallPostsDirectory);
-        File[] filelist = dir.listFiles();
+        File directory = new File(appDirectory + myWallPostsDirectory);
+        File[] filelist = directory.listFiles();
 
         if (filelist == null) return new ArrayList<>();
 
         for (File file : filelist) {
-            FileInputStream fis = null;
+            FileInputStream fileInputStream = null;
             try {
-                fis = new FileInputStream(file);
-                ObjectInputStream is = new ObjectInputStream(fis);
-                WallPost.SerializableWallPost simpleClass = (WallPost.SerializableWallPost) is.readObject();
-                is.close();
-                fis.close();
+                fileInputStream = new FileInputStream(file);
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                WallPost.SerializableWallPost simpleClass = (WallPost.SerializableWallPost) objectInputStream.readObject();
+                objectInputStream.close();
+                fileInputStream.close();
                 wallPosts.add(simpleClass);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

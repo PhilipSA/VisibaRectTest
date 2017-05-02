@@ -349,7 +349,7 @@ public class CameraPreviewFragment extends Fragment implements IResultReturning<
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                 // close the app
-                Toast.makeText(getActivity(), "You can't use the camera without granting permission. People like you makes me very sad", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), R.string.camera_permission_denied, Toast.LENGTH_LONG).show();
                 getActivity().finish();
             }
             else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {

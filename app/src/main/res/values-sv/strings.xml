@@ -5,4 +5,5 @@
     <string name="send_wall_post_button">Skicka</string>
     <string name="wall_post_edit_text">Skriv här</string>
     <string name="action_settings">Inställningar</string>
+    <string name="camera_permission_denied">Du kan inte använda kameran utan att ge tillåtelse. Personer som dig gör mig ledsen</string>
 </resources>

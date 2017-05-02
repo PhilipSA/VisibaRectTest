@@ -12,10 +12,6 @@ import com.example.visiba.visibarectest.AppImage;
 
 import java.util.ArrayList;
 
-/**
- * Created by Admin on 2017-04-28.
- */
-
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<AppImage> images;
@@ -37,13 +33,10 @@ public class ImageAdapter extends BaseAdapter {
         return 0;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         if (convertView == null) {
-            // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-
         } else {
             imageView = (ImageView) convertView;
         }

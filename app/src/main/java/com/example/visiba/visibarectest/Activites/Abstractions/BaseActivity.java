@@ -1,4 +1,4 @@
-package com.example.visiba.visibarectest.Activites;
+package com.example.visiba.visibarectest.Activites.Abstractions;
 
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;

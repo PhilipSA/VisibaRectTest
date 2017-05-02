@@ -5,9 +5,9 @@
     <item
         android:id="@+id/action_swedish"
         app:showAsAction="ifRoom"
-        android:title="Svenska" />
+        android:title="@string/sweden_in_swedish" />
     <item
         android:id="@+id/action_english"
         app:showAsAction="ifRoom"
-        android:title="English"/>
+        android:title="@string/english_in_english"/>
 </menu>

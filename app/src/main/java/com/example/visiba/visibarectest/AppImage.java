@@ -10,10 +10,6 @@ import android.support.annotation.NonNull;
 import java.util.Date;
 import java.util.UUID;
 
-/**
- * Created by Admin on 2017-04-27.
- */
-
 public class AppImage implements Comparable<AppImage>
 {
     public UUID imageId;

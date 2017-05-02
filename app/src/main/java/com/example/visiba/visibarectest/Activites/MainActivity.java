@@ -12,10 +12,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.papersoccer.visibarectest.R;
+import com.example.visiba.visibarectest.Activites.Abstractions.BaseActivity;
 import com.example.visiba.visibarectest.Adapters.WallPostAdapter;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Enums.ImageRequestCodeEnum;
-import com.example.visiba.visibarectest.Repositories.Abstractions.BaseRepository;
 import com.example.visiba.visibarectest.Repositories.AppImageRepository;
 import com.example.visiba.visibarectest.WallPost;
 import com.example.visiba.visibarectest.Repositories.WallPostRepository;

@@ -34,8 +34,8 @@ public class AppImageRepository extends BaseRepository
 
     public ArrayList<AppImage> loadAllImagesFromStorage() {
         ArrayList<AppImage> appImageArrayList = new ArrayList<>();
-        File dir = new File(appDirectory + myImagesDirectory);
-        File[] filelist = dir.listFiles();
+        File directory = new File(appDirectory + myImagesDirectory);
+        File[] filelist = directory.listFiles();
 
         if (filelist == null) return new ArrayList<>();
 
