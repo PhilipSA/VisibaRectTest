@@ -38,11 +38,10 @@ import java.util.List;
 import java.util.UUID;
 
 import com.example.papersoccer.visibarectest.R;
-import com.example.visiba.visibarectest.Activites.CameraActivity;
+import com.example.visiba.visibarectest.Activities.CameraActivity;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Enums.CameraTypeEnum;
 import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
-import com.example.visiba.visibarectest.Repositories.Abstractions.BaseRepository;
 import com.example.visiba.visibarectest.Repositories.AppImageRepository;
 
 public class CameraPreviewFragment extends Fragment implements IResultReturning<AppImage> {

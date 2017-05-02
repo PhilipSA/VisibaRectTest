@@ -1,4 +1,4 @@
-package com.example.visiba.visibarectest.Activites;
+package com.example.visiba.visibarectest.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.papersoccer.visibarectest.R;
-import com.example.visiba.visibarectest.Activites.Abstractions.BaseActivity;
+import com.example.visiba.visibarectest.Activities.Abstractions.BaseActivity;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;

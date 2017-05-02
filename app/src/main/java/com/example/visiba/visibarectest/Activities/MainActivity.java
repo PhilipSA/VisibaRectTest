@@ -1,4 +1,4 @@
-package com.example.visiba.visibarectest.Activites;
+package com.example.visiba.visibarectest.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.papersoccer.visibarectest.R;
-import com.example.visiba.visibarectest.Activites.Abstractions.BaseActivity;
+import com.example.visiba.visibarectest.Activities.Abstractions.BaseActivity;
 import com.example.visiba.visibarectest.Adapters.WallPostAdapter;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Enums.ImageRequestCodeEnum;
@@ -21,6 +21,7 @@ import com.example.visiba.visibarectest.WallPost;
 import com.example.visiba.visibarectest.Repositories.WallPostRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends BaseActivity {
 
@@ -40,6 +41,11 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init();
+    }
+
+    private void init()
+    {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -82,7 +88,7 @@ public class MainActivity extends BaseActivity {
     {
         WallPost wallPost = new WallPost(newPostInput.getText().toString(), leftImage, rightImage);
         wallPostRepository.SaveWallPostData(new WallPost.SerializableWallPost(wallPost));
-        recreate();
+        init();
     }
 
     public void OpenCameraActivity(int imageButtonRequestCode)
@@ -144,6 +150,7 @@ public class MainActivity extends BaseActivity {
             wallPosts.add(wallPost);
         }
 
+        Collections.reverse(wallPosts);
         WallPostAdapter wallPostAdapter = new WallPostAdapter(getBaseContext(), wallPosts);
         wallPostsListView.setAdapter(wallPostAdapter);
     }

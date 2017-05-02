@@ -9,11 +9,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.papersoccer.visibarectest.R;
-import com.example.visiba.visibarectest.Activites.CameraActivity;
+import com.example.visiba.visibarectest.Activities.CameraActivity;
 import com.example.visiba.visibarectest.Adapters.ImageAdapter;
 import com.example.visiba.visibarectest.AppImage;
 import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning;
-import com.example.visiba.visibarectest.Repositories.Abstractions.BaseRepository;
 import com.example.visiba.visibarectest.Repositories.AppImageRepository;
 
 import java.util.ArrayList;

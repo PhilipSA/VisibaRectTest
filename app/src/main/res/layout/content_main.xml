@@ -5,19 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.visiba.visibarectest.Activites.MainActivity"
+    tools:context="com.example.visiba.visibarectest.Activities.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/frameLayout">
+        android:id="@+id/wallPostInputLayout">
         <EditText
             android:id="@+id/newPostInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorButton"
             android:hint="@string/wall_post_edit_text"
+            android:maxLines="8"
             android:layout_marginRight="8dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true" />
@@ -73,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:paddingTop="20dp"
-        android:layout_below="@+id/frameLayout">
+        android:layout_below="@+id/wallPostInputLayout">
             <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
