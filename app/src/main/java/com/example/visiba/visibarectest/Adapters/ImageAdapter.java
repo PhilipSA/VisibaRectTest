@@ -1,11 +1,9 @@
 package com.example.visiba.visibarectest.Adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.example.visiba.visibarectest.AppImage;

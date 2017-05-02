@@ -1,23 +1,13 @@
 package com.example.visiba.visibarectest.Repositories.Abstractions;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
-
-import com.example.visiba.visibarectest.AppImage;
-import com.example.visiba.visibarectest.WallPost;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.UUID;
 
 public abstract class BaseRepository
 {
