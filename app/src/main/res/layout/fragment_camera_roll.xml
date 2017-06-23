@@ -9,7 +9,7 @@
         android:id="@+id/cameraRollSliderHeaderLayout" />
 
     <GridView
-        android:id="@+id/cameraRollGalleryGrid"
+        android:id="@+id/camera_cameraRollGalleryGrid"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:padding="20dp"

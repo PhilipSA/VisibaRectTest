@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/wallPostInputLayout">
         <EditText
-            android:id="@+id/newPostInput"
+            android:id="@+id/main_newPostInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorButton"
@@ -24,16 +24,16 @@
             android:layout_alignParentStart="true" />
 
         <RelativeLayout
-            android:id="@+id/newPostButtonsLayout"
+            android:id="@+id/main_newPostButtonsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:layout_below="@+id/newPostInput"
+            android:layout_below="@+id/main_newPostInput"
             android:visibility="visible"
             android:layout_alignParentStart="true">
 
             <ImageButton
-                android:id="@+id/leftImageButton"
+                android:id="@+id/main_leftImageButton"
                 android:onClick="onLeftImageButtonClick"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -44,18 +44,18 @@
                 android:layout_marginStart="15dp" />
 
             <ImageButton
-                android:id="@+id/rightImageButton"
+                android:id="@+id/main_rightImageButton"
                 android:onClick="onRightImageButtonClick"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 style="@style/DefaultTransparentImageButtonStyle"
                 android:src="@drawable/ic_album_rund"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/leftImageButton"
+                android:layout_toEndOf="@+id/main_leftImageButton"
                 android:layout_marginStart="24dp" />
 
             <Button
-                android:id="@+id/sendWallPostButton"
+                android:id="@+id/main_sendWallPostButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onSendWallPostClick"
@@ -76,6 +76,7 @@
         android:paddingTop="20dp"
         android:layout_below="@+id/wallPostInputLayout">
             <ListView
+                android:id="@+id/main_wallPostsListView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
@@ -85,7 +86,6 @@
                 android:divider="@color/colorDivider"
                 android:dividerHeight="2dp"
                 android:headerDividersEnabled="true"
-                android:id="@+id/wallPostsListView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true">
             </ListView>
