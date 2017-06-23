@@ -191,7 +191,7 @@ class CameraPreviewFragment : Fragment(), IResultReturning<AppImage> {
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation))
             val readerListener = ImageReader.OnImageAvailableListener { reader ->
                 try {
-                    appImage = AppImage(UUID.randomUUID(), reader.acquireLatestImage())
+                    appImage = AppImage(reader.acquireLatestImage())
                     appImageRepository.saveAppImage(appImage!!)
                 } finally {
                     appImage?.let {
