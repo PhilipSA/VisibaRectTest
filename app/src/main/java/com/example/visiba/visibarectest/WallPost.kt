@@ -5,25 +5,20 @@ import java.util.Date
 import java.util.UUID
 
 class WallPost {
-    var id: UUID
+    var id: UUID = UUID.randomUUID()
     var textContent: String
-    var leftImage: AppImage? = null
-    var rightImage: AppImage? = null
+    @Transient var leftImage: AppImage? = null
+    @Transient var rightImage: AppImage? = null
     var postedDate: Date
+    var leftImageId: UUID?
+    var rightImageId: UUID?
 
-    constructor(id: UUID, textContent: String, leftImage: AppImage, rightImage: AppImage, postedDate: Date) {
-        this.id = id
+    constructor(textContent: String, leftImage: AppImage?, rightImage: AppImage?) {
         this.textContent = textContent
         this.leftImage = leftImage
         this.rightImage = rightImage
-        this.postedDate = postedDate
-    }
-
-    constructor(textContent: String, leftImage: AppImage, rightImage: AppImage) {
-        this.id = UUID.randomUUID()
-        this.textContent = textContent
-        this.leftImage = leftImage
-        this.rightImage = rightImage
+        leftImageId = leftImage?.imageId
+        rightImageId = rightImage?.imageId
         this.postedDate = Date()
     }
 }

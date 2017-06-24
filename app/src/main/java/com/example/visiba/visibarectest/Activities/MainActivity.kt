@@ -69,7 +69,7 @@ class MainActivity : BaseActivity() {
     }
 
     fun onSendWallPostClick(view: View) {
-        val wallPost = WallPost(newPostInput.text.toString(), leftImage!!, rightImage!!)
+        val wallPost = WallPost(newPostInput.text.toString(), leftImage, rightImage)
         wallPostRepository.SaveWallPostData(wallPost)
         init()
     }

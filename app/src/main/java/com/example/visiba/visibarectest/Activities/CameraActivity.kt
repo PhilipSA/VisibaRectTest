@@ -64,11 +64,13 @@ class CameraActivity : BaseActivity(), IResultReturning<AppImage> {
     }
 
     override fun Finish(appImage: AppImage?) {
-        val conData = Bundle()
-        conData.putString("IMAGE_ID", appImage!!.imageId.toString())
-        val intent = Intent()
-        intent.putExtras(conData)
-        setResult(Activity.RESULT_OK, intent)
+        appImage?.let {
+            val conData = Bundle()
+            conData.putString("IMAGE_ID", it.imageId.toString())
+            val intent = Intent()
+            intent.putExtras(conData)
+            setResult(Activity.RESULT_OK, intent)
+        }
         finish()
     }
 }

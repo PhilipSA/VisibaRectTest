@@ -26,7 +26,7 @@ class WallPostAdapter(private val mContext: Context, private val wallPosts: Muta
     }
 
     override fun getItemId(position: Int): Long {
-        return 0
+        return wallPosts[position].id.leastSignificantBits
     }
 
     private fun setImageViewValues(imageView: ImageView, appImage: AppImage?) {
@@ -51,7 +51,7 @@ class WallPostAdapter(private val mContext: Context, private val wallPosts: Muta
         view.layoutParams = params
     }
 
-    override fun getView(position: Int, convertView: View, parent: ViewGroup): View {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: View
         val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         view = inflater.inflate(R.layout.wallpost_layout, parent, false)

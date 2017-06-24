@@ -4,11 +4,11 @@ import io.paperdb.Paper
 abstract class BaseRepository<T> {
     abstract var dbName: String
 
-    fun saveObject(saveItem: T, itemKey: String) {
+    open fun saveObject(saveItem: T, itemKey: String) {
         Paper.book(dbName).write(itemKey, saveItem)
     }
 
-    fun loadAllItems(): MutableList<T> {
+    open fun loadAllItems(): MutableList<T> {
         var objectList = mutableListOf<T>()
         Paper.book(dbName).allKeys.forEach {
             objectList.add(Paper.book(dbName).read(it.toString()))
@@ -16,7 +16,7 @@ abstract class BaseRepository<T> {
         return objectList
     }
 
-    fun loadItem(itemKey: String): T? {
+    open fun loadItem(itemKey: String): T? {
         return Paper.book(dbName).read(itemKey)
     }
 }
