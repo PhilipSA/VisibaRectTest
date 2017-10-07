@@ -14,7 +14,7 @@ import com.example.visiba.visibarectest.Fragments.Abstractions.IResultReturning
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 class CameraActivity : BaseActivity(), IResultReturning<AppImage> {
-    lateinit var mSlindingUpPanelLayout: SlidingUpPanelLayout
+    private lateinit var mSlindingUpPanelLayout: SlidingUpPanelLayout
     lateinit var cameraRollSliderHeaderArrow: ImageView
     lateinit var cameraRollSliderHeaderLayout: RelativeLayout
 
@@ -22,9 +22,9 @@ class CameraActivity : BaseActivity(), IResultReturning<AppImage> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
 
-        mSlindingUpPanelLayout = findViewById(R.id.sliding_layout) as SlidingUpPanelLayout
-        cameraRollSliderHeaderArrow = findViewById(R.id.cameraRollSliderHeaderArrow) as ImageView
-        cameraRollSliderHeaderLayout = findViewById(R.id.cameraRollSliderHeaderLayout) as RelativeLayout
+        mSlindingUpPanelLayout = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout)
+        cameraRollSliderHeaderArrow = findViewById<ImageView>(R.id.cameraRollSliderHeaderArrow)
+        cameraRollSliderHeaderLayout = findViewById<RelativeLayout>(R.id.cameraRollSliderHeaderLayout)
 
         mSlindingUpPanelLayout.addPanelSlideListener(object : SlidingUpPanelLayout.SimplePanelSlideListener() {
             override fun onPanelSlide(panel: View?, slideOffset: Float) {
@@ -63,8 +63,8 @@ class CameraActivity : BaseActivity(), IResultReturning<AppImage> {
         }
     }
 
-    override fun Finish(appImage: AppImage?) {
-        appImage?.let {
+    override fun finish(result: AppImage?) {
+        result?.let {
             val conData = Bundle()
             conData.putString("IMAGE_ID", it.imageId.toString())
             val intent = Intent()

@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.ImageButton
+import android.widget.RelativeLayout
 import com.example.papersoccer.visibarectest.R
 import com.example.visiba.visibarectest.Activities.Abstractions.BaseActivity
 import com.example.visiba.visibarectest.Adapters.WallPostAdapter
@@ -21,16 +22,16 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : BaseActivity() {
 
-    val newPostButtonsLayout get() = main_newPostButtonsLayout
-    val wallPostsListView get() = main_wallPostsListView
+    val newPostButtonsLayout: RelativeLayout get() = main_newPostButtonsLayout
+    private val wallPostsListView get() = main_wallPostsListView
 
-    val newPostInput get() = main_newPostInput
+    private val newPostInput get() = main_newPostInput
 
     lateinit var wallPostRepository: WallPostRepository
     lateinit var appImageRepository: AppImageRepository
 
-    val leftImageButton get() = main_leftImageButton
-    val rightImageButton get() = main_rightImageButton
+    private val leftImageButton get() = main_leftImageButton
+    private val rightImageButton get() = main_rightImageButton
 
     var leftImage: AppImage? = null
     var rightImage: AppImage? = null
@@ -42,7 +43,7 @@ class MainActivity : BaseActivity() {
 
     private fun init() {
         setContentView(R.layout.activity_main)
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
         Paper.init(this)
@@ -58,13 +59,12 @@ class MainActivity : BaseActivity() {
             }
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (s.length != 0)
-                    newPostButtonsLayout.visibility = View.VISIBLE
-                else {
-                    newPostButtonsLayout.visibility = View.INVISIBLE
-                }
-            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) =
+                    if (s.isNotEmpty())
+                        newPostButtonsLayout.visibility = View.VISIBLE
+                    else {
+                        newPostButtonsLayout.visibility = View.INVISIBLE
+                    }
         })
     }
 
@@ -74,7 +74,7 @@ class MainActivity : BaseActivity() {
         init()
     }
 
-    fun OpenCameraActivity(imageButtonRequestCode: Int) {
+    private fun openCameraActivity(imageButtonRequestCode: Int) {
         val intent = Intent(this, CameraActivity::class.java)
         intent.putExtra("IMAGE_BUTTON_REQUEST_CODE", imageButtonRequestCode)
         startActivityForResult(intent, imageButtonRequestCode)
@@ -103,7 +103,7 @@ class MainActivity : BaseActivity() {
 
     fun onLeftImageButtonClick(v: View) {
         try {
-            OpenCameraActivity(ImageRequestCodeEnum.LEFT)
+            openCameraActivity(ImageRequestCodeEnum.LEFT)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -112,14 +112,14 @@ class MainActivity : BaseActivity() {
 
     fun onRightImageButtonClick(v: View) {
         try {
-            OpenCameraActivity(ImageRequestCodeEnum.RIGHT)
+            openCameraActivity(ImageRequestCodeEnum.RIGHT)
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
     }
 
-    fun populateWallPostsListView() {
+    private fun populateWallPostsListView() {
         val wallPosts = wallPostRepository.loadAllItems()
         val wallPostAdapter = WallPostAdapter(baseContext, wallPosts!!.asReversed())
         wallPostsListView.adapter = wallPostAdapter

@@ -3,7 +3,6 @@ package com.example.visiba.visibarectest.Fragments
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
 import android.graphics.SurfaceTexture
 import android.hardware.camera2.CameraAccessException
@@ -17,7 +16,6 @@ import android.hardware.camera2.TotalCaptureResult
 import android.media.ImageReader
 import android.os.Bundle
 import android.os.Handler
-import android.os.HandlerThread
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -33,7 +31,6 @@ import android.widget.Toast
 
 import java.util.ArrayList
 import java.util.Arrays
-import java.util.UUID
 
 import com.example.papersoccer.visibarectest.R
 import com.example.visiba.visibarectest.Activities.CameraActivity
@@ -53,14 +50,11 @@ class CameraPreviewFragment : Fragment(), IResultReturning<AppImage> {
     private var cameraId: String? = null
     protected var cameraDevice: CameraDevice? = null
     lateinit protected var cameraCaptureSessions: CameraCaptureSession
-    protected var captureRequest: CaptureRequest? = null
     lateinit protected var captureRequestBuilder: CaptureRequest.Builder
     private var imageDimension: Size? = null
     private var imageReader: ImageReader? = null
     private var appImage: AppImage? = null
-    private val mFlashSupported: Boolean = false
     private var mBackgroundHandler: Handler? = null
-    private var mBackgroundThread: HandlerThread? = null
     lateinit private var appImageRepository: AppImageRepository
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -68,31 +62,26 @@ class CameraPreviewFragment : Fragment(), IResultReturning<AppImage> {
 
         val view = inflater!!.inflate(R.layout.fragment_camera_preview, container, false)
         super.onCreate(savedInstanceState)
-        textureView = view.findViewById(R.id.cameraPreviewSurfaceView) as TextureView
-        assert(textureView != null)
+        textureView = view.findViewById<TextureView>(R.id.cameraPreviewSurfaceView)
         textureView!!.surfaceTextureListener = textureListener
 
-        takePictureButton = view.findViewById(R.id.takePhotoImageButton) as ImageButton
-        assert(takePictureButton != null)
+        takePictureButton = view.findViewById<ImageButton>(R.id.takePhotoImageButton)
         takePictureButton!!.setOnClickListener { takePicture() }
 
-        swapCameraImageButton = view.findViewById(R.id.swapCameraImageButton) as ImageButton
-        assert(swapCameraImageButton != null)
+        swapCameraImageButton = view.findViewById<ImageButton>(R.id.swapCameraImageButton)
         swapCameraImageButton!!.setOnClickListener { swapCamera() }
 
         appImageRepository = AppImageRepository()
 
-        exitCameraImageButton = view.findViewById(R.id.exitCameraImageButton) as ImageButton
-        exitCameraImageButton!!.setOnClickListener { Finish(null) }
+        exitCameraImageButton = view.findViewById<ImageButton>(R.id.exitCameraImageButton)
+        exitCameraImageButton!!.setOnClickListener { finish(null) }
         return view
     }
 
-    override fun Finish(appImage: AppImage?) {
-        if (appImage != null) {
-            (activity as CameraActivity).Finish(appImage)
-        } else {
-            activity.finish()
-        }
+    override fun finish(result: AppImage?) = if (result != null) {
+        (activity as CameraActivity).finish(result)
+    } else {
+        activity.finish()
     }
 
     private fun swapCamera() {
@@ -105,15 +94,10 @@ class CameraPreviewFragment : Fragment(), IResultReturning<AppImage> {
         override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
             openCamera(currentCamera)
         }
-
         override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
             // Transform you image captured size according to the surface width and height
         }
-
-        override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
-            return false
-        }
-
+        override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean = false
         override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
     }
 
@@ -135,33 +119,7 @@ class CameraPreviewFragment : Fragment(), IResultReturning<AppImage> {
         }
     }
 
-    internal val captureCallbackListener: CameraCaptureSession.CaptureCallback = object : CameraCaptureSession.CaptureCallback() {
-        override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
-            super.onCaptureCompleted(session, request, result)
-            Toast.makeText(activity, "Saved:" + appImage!!.imageId, Toast.LENGTH_SHORT).show()
-            createCameraPreview()
-        }
-    }
-
-    protected fun startBackgroundThread() {
-        mBackgroundThread = HandlerThread("Camera Background")
-        mBackgroundThread!!.start()
-        mBackgroundHandler = Handler(mBackgroundThread!!.looper)
-    }
-
-    protected fun stopBackgroundThread() {
-        mBackgroundThread!!.quitSafely()
-        try {
-            mBackgroundThread!!.join()
-            mBackgroundThread = null
-            mBackgroundHandler = null
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
-
-    }
-
-    protected fun takePicture() {
+    private fun takePicture() {
         if (null == cameraDevice) {
             Log.e(TAG, "cameraDevice is null")
             return
@@ -195,7 +153,7 @@ class CameraPreviewFragment : Fragment(), IResultReturning<AppImage> {
                     appImageRepository.saveAppImage(appImage!!)
                 } finally {
                     appImage?.let {
-                        Finish(it)
+                        finish(it)
                     }
                 }
             }
@@ -225,31 +183,28 @@ class CameraPreviewFragment : Fragment(), IResultReturning<AppImage> {
 
     }
 
-    protected fun createCameraPreview() {
-        try {
-            val texture = textureView!!.surfaceTexture!!
-            texture.setDefaultBufferSize(imageDimension!!.width, imageDimension!!.height)
-            val surface = Surface(texture)
-            captureRequestBuilder = cameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
-            captureRequestBuilder.addTarget(surface)
-            cameraDevice!!.createCaptureSession(Arrays.asList(surface), object : CameraCaptureSession.StateCallback() {
-                override fun onConfigured(cameraCaptureSession: CameraCaptureSession) {
-                    if (null == cameraDevice) {
-                        return
-                    }
-
-                    cameraCaptureSessions = cameraCaptureSession
-                    updatePreview()
+    private fun createCameraPreview() = try {
+        val texture = textureView!!.surfaceTexture!!
+        texture.setDefaultBufferSize(imageDimension!!.width, imageDimension!!.height)
+        val surface = Surface(texture)
+        captureRequestBuilder = cameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
+        captureRequestBuilder.addTarget(surface)
+        cameraDevice!!.createCaptureSession(Arrays.asList(surface), object : CameraCaptureSession.StateCallback() {
+            override fun onConfigured(cameraCaptureSession: CameraCaptureSession) {
+                if (null == cameraDevice) {
+                    return
                 }
 
-                override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {
-                    Toast.makeText(activity, "Configuration change", Toast.LENGTH_SHORT).show()
-                }
-            }, null)
-        } catch (e: CameraAccessException) {
-            e.printStackTrace()
-        }
+                cameraCaptureSessions = cameraCaptureSession
+                updatePreview()
+            }
 
+            override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {
+                Toast.makeText(activity, "Configuration change", Toast.LENGTH_SHORT).show()
+            }
+        }, null)
+    } catch (e: CameraAccessException) {
+        e.printStackTrace()
     }
 
     private fun openCamera(cameraTypeEnum: Int) {
@@ -259,7 +214,6 @@ class CameraPreviewFragment : Fragment(), IResultReturning<AppImage> {
             cameraId = manager.cameraIdList[cameraTypeEnum]
             val characteristics = manager.getCameraCharacteristics(cameraId!!)
             val map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
-            assert(map != null)
             imageDimension = map!!.getOutputSizes<SurfaceTexture>(SurfaceTexture::class.java)[0]
 
             if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -274,7 +228,7 @@ class CameraPreviewFragment : Fragment(), IResultReturning<AppImage> {
         Log.e(TAG, "openCamera X")
     }
 
-    protected fun updatePreview() {
+    private fun updatePreview() {
         if (null == cameraDevice) {
             Log.e(TAG, "updatePreview error, return")
         }

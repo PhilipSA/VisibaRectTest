@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.GridView
 
 import com.example.papersoccer.visibarectest.R
 import com.example.visiba.visibarectest.Activities.CameraActivity
@@ -34,7 +33,7 @@ class CameraGalleryRollFragment : Fragment(), IResultReturning<AppImage> {
         displayAllImages()
     }
 
-    private val onGalleryItemClick = AdapterView.OnItemClickListener { parent, v, position, id -> Finish(parent.getItemAtPosition(position) as AppImage) }
+    private val onGalleryItemClick = AdapterView.OnItemClickListener { parent, v, position, id -> finish(parent.getItemAtPosition(position) as AppImage) }
 
     private fun displayAllImages() {
         val appImages = appImageRepository.loadAllItems()
@@ -45,7 +44,7 @@ class CameraGalleryRollFragment : Fragment(), IResultReturning<AppImage> {
         cameraRollGalleryGrid.adapter = imageAdapter
     }
 
-    override fun Finish(result: AppImage?) {
-        (activity as CameraActivity).Finish(result)
+    override fun finish(result: AppImage?) {
+        (activity as CameraActivity).finish(result)
     }
 }

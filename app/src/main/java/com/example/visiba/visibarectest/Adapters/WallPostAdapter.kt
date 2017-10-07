@@ -15,23 +15,15 @@ import com.example.visiba.visibarectest.WallPost
 
 import java.util.ArrayList
 
-class WallPostAdapter(private val mContext: Context, private val wallPosts: MutableList<WallPost>) : BaseAdapter() {
+class WallPostAdapter(private val context: Context, private val wallPosts: MutableList<WallPost>) : BaseAdapter() {
 
-    override fun getCount(): Int {
-        return wallPosts.size
-    }
-
-    override fun getItem(position: Int): Any {
-        return wallPosts[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return wallPosts[position].id.leastSignificantBits
-    }
+    override fun getCount(): Int = wallPosts.size
+    override fun getItem(position: Int): Any = wallPosts[position]
+    override fun getItemId(position: Int): Long = wallPosts[position].id.leastSignificantBits
 
     private fun setImageViewValues(imageView: ImageView, appImage: AppImage?) {
         if (appImage != null) {
-            imageView.setImageDrawable(appImage.getDrawable(mContext))
+            imageView.setImageDrawable(appImage.getDrawable(context))
             imageView.clipToOutline = true
         } else {
             setViewWeightParam(imageView, 0f)
@@ -52,13 +44,11 @@ class WallPostAdapter(private val mContext: Context, private val wallPosts: Muta
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view: View
-        val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        view = inflater.inflate(R.layout.wallpost_layout, parent, false)
+        val view = View.inflate(context, R.layout.wallpost_layout, parent)
 
-        val leftImageView = view.findViewById(R.id.leftImageView) as ImageView
-        val textContentView = view.findViewById(R.id.textContentView) as TextView
-        val rightImageView = view.findViewById(R.id.rightImageView) as ImageView
+        val leftImageView = view.findViewById<ImageView>(R.id.leftImageView)
+        val textContentView = view.findViewById<TextView>(R.id.textContentView)
+        val rightImageView = view.findViewById<ImageView>(R.id.rightImageView)
 
         setImageViewValues(leftImageView, wallPosts[position].leftImage)
         textContentView.text = wallPosts[position].textContent
